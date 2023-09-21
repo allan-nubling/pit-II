@@ -1,0 +1,98 @@
+{
+	"openapi": "3.0.0",
+	"paths": {
+		"/app/health-check": {
+			"get": {
+				"operationId": "AppController_healthCheck",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Application"
+				]
+			}
+		},
+		"/client/{id}": {
+			"get": {
+				"operationId": "GetClientByIdController_handle",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"description": "Id do cliente",
+						"example": 92131231,
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClientDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Cliente"
+				]
+			}
+		}
+	},
+	"info": {
+		"title": "Backend PIT",
+		"description": "Backend para ser utilizado no PIT",
+		"version": "0.0.1",
+		"contact": {}
+	},
+	"tags": [],
+	"servers": [
+		{
+			"url": "http://localhost:3000",
+			"description": "development"
+		}
+	],
+	"components": {
+		"schemas": {
+			"ClientDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"email": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"email",
+					"name",
+					"phone"
+				]
+			}
+		}
+	}
+}

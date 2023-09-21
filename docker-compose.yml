@@ -1,0 +1,18 @@
+services:
+  redis:
+    image: bitnami/redis:latest
+    container_name: redis
+    # network_mode: "host"
+    environment:
+      - REDIS_PASSWORD=root
+    ports:
+      - 6379:6379
+  database:
+    image: postgres:latest
+    # network_mode: "host"
+    environment:
+      POSTGRES_DB: "pit"
+      POSTGRES_USER: "sys@pit"
+      POSTGRES_PASSWORD: "Postgres@PIT-II!"
+    ports:
+      - "5432:5432"
