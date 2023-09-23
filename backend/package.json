@@ -1,6 +1,6 @@
 {
   "name": "pit-be",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Backend para ser utilizado no PIT",
   "author": {
     "name": "Allan Nubling",
@@ -9,7 +9,6 @@
   "private": false,
   "license": "UNLICENSED",
   "scripts": {
-    "prepare": "node ./huskyPrepare.js",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -81,7 +80,7 @@
       "ts"
     ],
     "moduleNameMapper": {
-        "^src/(.*)$": "<rootDir>/$1"
+      "^src/(.*)$": "<rootDir>/$1"
     },
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",

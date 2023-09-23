@@ -53,12 +53,44 @@
 					"Cliente"
 				]
 			}
+		},
+		"/client-address/{id}": {
+			"get": {
+				"operationId": "GetClientAddressByIdController_handle",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"description": "Id do endereço",
+						"example": 92131231,
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClientAddressDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Cliente"
+				]
+			}
 		}
 	},
 	"info": {
 		"title": "Backend PIT",
 		"description": "Backend para ser utilizado no PIT",
-		"version": "0.0.1",
+		"version": "0.1.0",
 		"contact": {}
 	},
 	"tags": [],
@@ -84,13 +116,76 @@
 					},
 					"phone": {
 						"type": "string"
+					},
+					"createdAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"updatedAt": {
+						"format": "date-time",
+						"type": "string"
 					}
 				},
 				"required": [
 					"id",
 					"email",
 					"name",
-					"phone"
+					"phone",
+					"createdAt",
+					"updatedAt"
+				]
+			},
+			"ClientAddressDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"accountId": {
+						"type": "number"
+					},
+					"address": {
+						"type": "string"
+					},
+					"number": {
+						"type": "number"
+					},
+					"neighborhood": {
+						"type": "string"
+					},
+					"city": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string"
+					},
+					"country": {
+						"type": "string"
+					},
+					"zipcode": {
+						"type": "string"
+					},
+					"createdAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"updatedAt": {
+						"format": "date-time",
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"accountId",
+					"address",
+					"number",
+					"neighborhood",
+					"city",
+					"state",
+					"country",
+					"zipcode",
+					"createdAt",
+					"updatedAt"
 				]
 			}
 		}
