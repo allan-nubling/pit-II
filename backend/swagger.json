@@ -90,7 +90,7 @@
 	"info": {
 		"title": "Backend PIT",
 		"description": "Backend para ser utilizado no PIT",
-		"version": "0.0.1",
+		"version": "0.1.0",
 		"contact": {}
 	},
 	"tags": [],
