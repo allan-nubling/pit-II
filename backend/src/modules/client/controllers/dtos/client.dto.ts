@@ -5,4 +5,6 @@ export class ClientDTO implements Client {
   email: string;
   name: string;
   phone: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
