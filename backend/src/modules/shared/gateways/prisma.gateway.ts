@@ -15,7 +15,7 @@ export class PrismaGateway extends PrismaClient implements OnModuleInit {
   ) {
     super({
       datasourceUrl: `postgresql://${dbUser}:${dbPass}@${dbHost}:5432/${dbName}?schema=public`,
-      log: Boolean(dbLogging) && ['query', 'info', 'warn', 'error'],
+      log: dbLogging === 'true' ? ['query', 'info', 'warn', 'error'] : [],
     });
   }
   async onModuleInit() {

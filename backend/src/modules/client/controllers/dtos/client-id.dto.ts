@@ -5,7 +5,7 @@ import { IsInt } from 'class-validator';
 
 export class ClientIdDTO {
   @ApiProperty({
-    description: 'Id do cliente',
+    description: 'client id',
     example: 92131231,
   })
   @IsInt()

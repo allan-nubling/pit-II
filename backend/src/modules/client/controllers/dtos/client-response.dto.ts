@@ -1,9 +1,10 @@
 import { Client } from '@prisma/client';
 
-export class ClientDTO implements Client {
+export class ClientResponseDTO implements Client {
   id: number;
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   phone: string;
   createdAt: Date;
   updatedAt: Date;

@@ -1,5 +1,5 @@
 import { Controller, Get, Inject } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { AppControllers } from './modules/shared/enums/app-controllers';
 import { AppEnvironment } from './modules/shared/enums/app-environment';
@@ -20,6 +20,7 @@ export class AppController {
     @Inject(AppEnvironment.nodeEnv) private readonly nodeEnv: string,
   ) {}
 
+  @ApiOperation({ summary: 'Check if application is healthy' })
   @Get('/health-check')
   async healthCheck(): Promise<ServerInfo> {
     return {

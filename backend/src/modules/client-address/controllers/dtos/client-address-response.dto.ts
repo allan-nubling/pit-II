@@ -1,6 +1,6 @@
 import { ClientAddress } from '@prisma/client';
 
-export class ClientAddressDTO implements ClientAddress {
+export class ClientAddressResponseDTO implements ClientAddress {
   id: number;
   accountId: number;
   address: string;
