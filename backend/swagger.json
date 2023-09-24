@@ -136,7 +136,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/FindClientResponseDTO"
+									"$ref": "#/components/schemas/ListClientResponseDTO"
 								}
 							}
 						}
@@ -447,7 +447,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/FindClientResponseDTO"
+									"$ref": "#/components/schemas/ListClientResponseDTO"
 								}
 							}
 						}
@@ -455,6 +455,112 @@
 				},
 				"tags": [
 					"Client Address"
+				]
+			}
+		},
+		"/cupcake/category": {
+			"get": {
+				"operationId": "ListCategoryController_handle",
+				"summary": "List cupcakes categories",
+				"parameters": [
+					{
+						"name": "page",
+						"required": false,
+						"in": "query",
+						"description": "Page number",
+						"example": 1,
+						"schema": {
+							"minimum": 1,
+							"default": 1,
+							"type": "number"
+						}
+					},
+					{
+						"name": "size",
+						"required": false,
+						"in": "query",
+						"description": "Max size of content response, maximum of 50 elements",
+						"example": 25,
+						"schema": {
+							"minimum": 1,
+							"maximum": 50,
+							"default": 25,
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ListCategoryResponseDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Cupcake"
+				]
+			}
+		},
+		"/cupcake": {
+			"get": {
+				"operationId": "ListCupcakeController_handle",
+				"summary": "List cupcakes",
+				"parameters": [
+					{
+						"name": "page",
+						"required": false,
+						"in": "query",
+						"description": "Page number",
+						"example": 1,
+						"schema": {
+							"minimum": 1,
+							"default": 1,
+							"type": "number"
+						}
+					},
+					{
+						"name": "size",
+						"required": false,
+						"in": "query",
+						"description": "Max size of content response, maximum of 50 elements",
+						"example": 25,
+						"schema": {
+							"minimum": 1,
+							"maximum": 50,
+							"default": 25,
+							"type": "number"
+						}
+					},
+					{
+						"name": "categoryId",
+						"required": false,
+						"in": "query",
+						"description": "Category id to filter cupcakes",
+						"example": 1,
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ListCupcakeResponseDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Cupcake"
 				]
 			}
 		}
@@ -552,7 +658,7 @@
 					"updatedAt"
 				]
 			},
-			"FindClientResponseDTO": {
+			"ListClientResponseDTO": {
 				"type": "object",
 				"properties": {
 					"content": {
@@ -798,6 +904,143 @@
 						"example": "93950000"
 					}
 				}
+			},
+			"CategoryResponseDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"description"
+				]
+			},
+			"ListCategoryResponseDTO": {
+				"type": "object",
+				"properties": {
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/CategoryResponseDTO"
+						}
+					},
+					"numberOfElements": {
+						"type": "number"
+					},
+					"totalElements": {
+						"type": "number"
+					},
+					"page": {
+						"type": "number"
+					},
+					"totalPages": {
+						"type": "number"
+					},
+					"hasContent": {
+						"type": "boolean"
+					},
+					"nextPage": {
+						"type": "number"
+					},
+					"previousPage": {
+						"type": "number"
+					}
+				},
+				"required": [
+					"content",
+					"numberOfElements",
+					"totalElements",
+					"page",
+					"totalPages",
+					"hasContent"
+				]
+			},
+			"i": {
+				"type": "object",
+				"properties": {}
+			},
+			"CupcakeResponseDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"ingredients": {
+						"type": "string"
+					},
+					"value": {
+						"$ref": "#/components/schemas/i"
+					},
+					"categories": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/CategoryResponseDTO"
+						}
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"description",
+					"ingredients",
+					"value",
+					"categories"
+				]
+			},
+			"ListCupcakeResponseDTO": {
+				"type": "object",
+				"properties": {
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/CupcakeResponseDTO"
+						}
+					},
+					"numberOfElements": {
+						"type": "number"
+					},
+					"totalElements": {
+						"type": "number"
+					},
+					"page": {
+						"type": "number"
+					},
+					"totalPages": {
+						"type": "number"
+					},
+					"hasContent": {
+						"type": "boolean"
+					},
+					"nextPage": {
+						"type": "number"
+					},
+					"previousPage": {
+						"type": "number"
+					}
+				},
+				"required": [
+					"content",
+					"numberOfElements",
+					"totalElements",
+					"page",
+					"totalPages",
+					"hasContent"
+				]
 			}
 		}
 	}

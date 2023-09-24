@@ -2,6 +2,6 @@ import { PaginationResponseDTO } from 'src/modules/shared/dtos/pagination-respon
 
 import { ClientResponseDTO } from './client-response.dto';
 
-export class FindClientResponseDTO extends PaginationResponseDTO<ClientResponseDTO> {
+export class ListClientResponseDTO extends PaginationResponseDTO<ClientResponseDTO> {
   content: ClientResponseDTO[];
 }

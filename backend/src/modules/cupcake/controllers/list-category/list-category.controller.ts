@@ -2,31 +2,27 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { DefaultHeaders } from 'src/modules/shared/decorator/default-headers.decorator';
+import { PaginationDTO } from 'src/modules/shared/dtos/pagination.dto';
 import { AppControllers } from 'src/modules/shared/enums/app-controllers';
 import { SwaggerTags } from 'src/modules/shared/enums/swagger-tags';
 import { EventType } from 'src/modules/shared/services/dispatch-event/interface/event-type.enum';
 
-import { ListClientResponseDTO } from '../dtos/list-client-response.dto';
-import { ListClientDTO } from '../dtos/list-client.dto';
-import { ListClientCommand } from './list.command';
+import { ListCategoryResponseDTO } from '../dtos/list-category-response.dto';
+import { ListCategoryCommand } from './list-category.command';
 
-@ApiTags(SwaggerTags.client)
-@Controller(AppControllers.client)
-export class ListClientController {
-  constructor(private readonly command: ListClientCommand) {}
+@ApiTags(SwaggerTags.cupcake)
+@Controller(AppControllers.cupcake)
+export class ListCategoryController {
+  constructor(private readonly command: ListCategoryCommand) {}
 
-  @ApiOperation({ summary: 'List clients' })
-  @Get()
+  @ApiOperation({ summary: 'List cupcakes categories' })
+  @Get('/category')
   handle(
-    @Query() query: ListClientDTO,
+    @Query() query: PaginationDTO,
     @DefaultHeaders() headers,
-  ): Promise<ListClientResponseDTO> {
+  ): Promise<ListCategoryResponseDTO> {
     return this.command.execute({
       input: {
-        email: query.email,
-        firstName: query.firstName,
-        lastName: query.lastName,
-        phone: query.phone,
         page: query.page,
         size: query.size,
       },

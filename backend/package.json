@@ -1,6 +1,6 @@
 {
   "name": "pit-be",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Backend para ser utilizado no PIT",
   "author": {
     "name": "Allan Nubling",
@@ -24,6 +24,9 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:ci": "jest --collectCoverage --ci --reporters=default --reporters=jest-junit --silent --watchAll=false",
     "commit": "git add . && git-cz"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@nestjs/cache-manager": "^2.1.0",

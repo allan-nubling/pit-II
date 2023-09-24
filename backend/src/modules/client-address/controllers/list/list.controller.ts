@@ -7,7 +7,7 @@ import { SwaggerTags } from 'src/modules/shared/enums/swagger-tags';
 import { EventType } from 'src/modules/shared/services/dispatch-event/interface/event-type.enum';
 
 import { ListClientAddressDTO } from '../dtos/list-client-address.dto';
-import { FindClientResponseDTO } from '../dtos/list-client-response.dto';
+import { ListClientResponseDTO } from '../dtos/list-client-response.dto';
 import { ListClientAddressCommand } from './list.command';
 
 @ApiTags(SwaggerTags.clientAddress)
@@ -20,7 +20,7 @@ export class ListClientAddressController {
   handle(
     @Query() query: ListClientAddressDTO,
     @DefaultHeaders() headers,
-  ): Promise<FindClientResponseDTO> {
+  ): Promise<ListClientResponseDTO> {
     return this.command.execute({
       input: {
         clientId: query.clientId,

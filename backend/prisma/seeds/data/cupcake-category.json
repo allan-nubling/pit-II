@@ -1,0 +1,28 @@
+{
+  "categories": [
+    {
+      "name": "Clássicos",
+      "description": "Cupcakes clássicos e atemporais, perfeitos para os amantes de sabores tradicionais."
+    },
+    {
+      "name": "Sabores de Frutas",
+      "description": "Cupcakes frescos e frutados, com uma explosão de sabor de frutas naturais."
+    },
+    {
+      "name": "Chocolate",
+      "description": "Cupcakes indulgentes para os amantes de chocolate, com combinações ricas e intensas."
+    },
+    {
+      "name": "Red Velvet",
+      "description": "Os famosos cupcakes Red Velvet, com sua textura aveludada e sabor único."
+    },
+    {
+      "name": "Especiais",
+      "description": "Cupcakes gourmet exclusivos com ingredientes premium e decorações sofisticadas."
+    },
+    {
+      "name": "Edição Limitada",
+      "description": "Cupcakes sazonais e edições especiais que mudam regularmente, não perca!"
+    }
+  ]
+}
