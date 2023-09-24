@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
 
-import { Client } from '@prisma/client';
+import { Category } from '@prisma/client';
 
+import { Command, CommandInput } from 'src/modules/shared/abstractions/command';
 import { ResultWithPagination } from 'src/modules/shared/abstractions/repository-pagination';
 import { CommandEventHandler } from 'src/modules/shared/decorator/command-event-handler.decorator';
+import { PaginationDTO } from 'src/modules/shared/dtos/pagination.dto';
 import { DispatchEventService } from 'src/modules/shared/services/dispatch-event/dispatch-event.service';
 
-import { Command, CommandInput } from '../../../shared/abstractions/command';
-import { ClientRepository } from '../../gateways/client-repository.gateway';
-import { ListClientDTO } from '../dtos/list-client.dto';
+import { CategoryRepository } from '../../gateways/category-repository.gateway';
 
 @Injectable()
-export class ListClientCommand extends Command {
+export class ListCategoryCommand extends Command {
   constructor(
     event: DispatchEventService,
-    private readonly repository: ClientRepository,
+    private readonly repository: CategoryRepository,
   ) {
     super(event);
   }
@@ -22,7 +22,7 @@ export class ListClientCommand extends Command {
   @CommandEventHandler('')
   async execute({
     input,
-  }: CommandInput<ListClientDTO>): Promise<ResultWithPagination<Client>> {
+  }: CommandInput<PaginationDTO>): Promise<ResultWithPagination<Category>> {
     return await this.repository.list(input);
   }
 }

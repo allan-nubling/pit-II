@@ -6,27 +6,24 @@ import { AppControllers } from 'src/modules/shared/enums/app-controllers';
 import { SwaggerTags } from 'src/modules/shared/enums/swagger-tags';
 import { EventType } from 'src/modules/shared/services/dispatch-event/interface/event-type.enum';
 
-import { ListClientResponseDTO } from '../dtos/list-client-response.dto';
-import { ListClientDTO } from '../dtos/list-client.dto';
-import { ListClientCommand } from './list.command';
+import { ListCupcakeDTO } from '../dtos/list-cupcake.dto';
+import { ListCupcakeResponseDTO } from '../dtos/list-cupcakes-response.dto';
+import { ListCupcakeCommand } from './list.command';
 
-@ApiTags(SwaggerTags.client)
-@Controller(AppControllers.client)
-export class ListClientController {
-  constructor(private readonly command: ListClientCommand) {}
+@ApiTags(SwaggerTags.cupcake)
+@Controller(AppControllers.cupcake)
+export class ListCupcakeController {
+  constructor(private readonly command: ListCupcakeCommand) {}
 
-  @ApiOperation({ summary: 'List clients' })
+  @ApiOperation({ summary: 'List cupcakes' })
   @Get()
   handle(
-    @Query() query: ListClientDTO,
+    @Query() query: ListCupcakeDTO,
     @DefaultHeaders() headers,
-  ): Promise<ListClientResponseDTO> {
+  ): Promise<ListCupcakeResponseDTO> {
     return this.command.execute({
       input: {
-        email: query.email,
-        firstName: query.firstName,
-        lastName: query.lastName,
-        phone: query.phone,
+        categoryId: query.categoryId,
         page: query.page,
         size: query.size,
       },
