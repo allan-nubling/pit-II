@@ -16,7 +16,7 @@ export class GetClientByIdController {
   constructor(private readonly command: GetClientByIdCommand) {}
 
   @ApiOperation({ summary: 'Get client by id' })
-  @Get(':id')
+  @Get(':clientId')
   handle(
     @Param() params: ClientIdDTO,
     @DefaultHeaders() headers,

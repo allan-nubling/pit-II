@@ -1,21 +1,20 @@
 import { Injectable } from '@nestjs/common';
 
-import { Client } from '@prisma/client';
+import { ClientAddress } from '@prisma/client';
 
 import { ResultWithPagination } from 'src/modules/shared/abstractions/repository-pagination';
 import { CommandEventHandler } from 'src/modules/shared/decorator/command-event-handler.decorator';
 import { DispatchEventService } from 'src/modules/shared/services/dispatch-event/dispatch-event.service';
 
 import { Command, CommandInput } from '../../../shared/abstractions/command';
-import { ClientNotFoundException } from '../../exceptions/client-not-found.exception';
-import { ClientRepository } from '../../gateways/client-repository.gateway';
-import { ListClientDTO } from '../dtos/list-client.dto';
+import { ClientAddressRepository } from '../../gateways/client-address-repository.gateway';
+import { ListClientAddressDTO } from '../dtos/list-client-address.dto';
 
 @Injectable()
-export class ListClientCommand extends Command {
+export class ListClientAddressCommand extends Command {
   constructor(
     event: DispatchEventService,
-    private readonly repository: ClientRepository,
+    private readonly repository: ClientAddressRepository,
   ) {
     super(event);
   }
@@ -23,9 +22,9 @@ export class ListClientCommand extends Command {
   @CommandEventHandler('')
   async execute({
     input,
-  }: CommandInput<ListClientDTO>): Promise<ResultWithPagination<Client>> {
-    const client = await this.repository.list(input);
-    if (!client) throw new ClientNotFoundException();
-    return client;
+  }: CommandInput<ListClientAddressDTO>): Promise<
+    ResultWithPagination<ClientAddress>
+  > {
+    return await this.repository.list(input);
   }
 }

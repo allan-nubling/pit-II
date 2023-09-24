@@ -8,9 +8,10 @@ import { DispatchEventService } from 'src/modules/shared/services/dispatch-event
 import { Command, CommandInput } from '../../../shared/abstractions/command';
 import { ClientAddressRepository } from '../../gateways/client-address-repository.gateway';
 import { ClientAddressIdDTO } from '../dtos/client-address-id.dto';
+import { UpdateClientAddressDTO } from '../dtos/update-client-address.dto';
 
 @Injectable()
-export class GetClientAddressByIdCommand extends Command {
+export class UpdateClientAddressCommand extends Command {
   constructor(
     event: DispatchEventService,
     private readonly repository: ClientAddressRepository,
@@ -18,12 +19,15 @@ export class GetClientAddressByIdCommand extends Command {
     super(event);
   }
 
-  @CommandEventHandler('clientAddressId')
+  @CommandEventHandler('clientId')
   async execute({
-    input,
-  }: CommandInput<ClientAddressIdDTO>): Promise<ClientAddress> {
-    return await this.repository.getOrThrow({
-      id: input.clientAddressId,
+    input: { clientAddressId: id, ...data },
+  }: CommandInput<
+    ClientAddressIdDTO & UpdateClientAddressDTO
+  >): Promise<ClientAddress> {
+    return await this.repository.update({
+      data,
+      where: { id },
     });
   }
 }

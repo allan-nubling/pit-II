@@ -17,14 +17,21 @@ export class UpdateClientController {
   constructor(private readonly command: UpdateClientCommand) {}
 
   @ApiOperation({ summary: 'Client update' })
-  @Patch('/:id')
+  @Patch('/:clientId')
   handle(
     @Param() params: ClientIdDTO,
     @Body() body: UpdateClientDTO,
     @DefaultHeaders() headers,
   ): Promise<ClientResponseDTO> {
     return this.command.execute({
-      input: { ...body, ...params },
+      input: {
+        email: body.email,
+        firstName: body.firstName,
+        lastName: body.lastName,
+        phone: body.phone,
+        favoriteAddressId: body.favoriteAddressId,
+        ...params,
+      },
       eventData: { type: EventType.http, params, body, headers },
     });
   }

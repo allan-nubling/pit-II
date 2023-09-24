@@ -2,13 +2,13 @@ import { ClientAddress } from '@prisma/client';
 
 export class ClientAddressResponseDTO implements ClientAddress {
   id: number;
-  accountId: number;
+  clientId: number;
   address: string;
   number: number;
+  complement: string;
   neighborhood: string;
   city: string;
   state: string;
-  country: string;
   zipcode: string;
   createdAt: Date;
   updatedAt: Date;

@@ -19,10 +19,9 @@ export class GetClientByIdCommand extends Command {
     super(event);
   }
 
-  @CommandEventHandler('id')
+  @CommandEventHandler('clientId')
   async execute({ input }: CommandInput<ClientIdDTO>): Promise<Client> {
-    console.log({ input });
-    const client = await this.repository.get({ id: input.id });
+    const client = await this.repository.get({ id: input.clientId });
     if (!client) throw new ClientNotFoundException();
     return client;
   }

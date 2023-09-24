@@ -6,27 +6,29 @@ import { AppControllers } from 'src/modules/shared/enums/app-controllers';
 import { SwaggerTags } from 'src/modules/shared/enums/swagger-tags';
 import { EventType } from 'src/modules/shared/services/dispatch-event/interface/event-type.enum';
 
+import { ListClientAddressDTO } from '../dtos/list-client-address.dto';
 import { FindClientResponseDTO } from '../dtos/list-client-response.dto';
-import { ListClientDTO } from '../dtos/list-client.dto';
-import { ListClientCommand } from './list.command';
+import { ListClientAddressCommand } from './list.command';
 
-@ApiTags(SwaggerTags.client)
-@Controller(AppControllers.client)
-export class ListClientController {
-  constructor(private readonly command: ListClientCommand) {}
+@ApiTags(SwaggerTags.clientAddress)
+@Controller(AppControllers.clientAddress)
+export class ListClientAddressController {
+  constructor(private readonly command: ListClientAddressCommand) {}
 
-  @ApiOperation({ summary: 'List clients' })
-  @Get()
+  @ApiOperation({ summary: 'List client address' })
+  @Get('')
   handle(
-    @Query() query: ListClientDTO,
+    @Query() query: ListClientAddressDTO,
     @DefaultHeaders() headers,
   ): Promise<FindClientResponseDTO> {
     return this.command.execute({
       input: {
-        email: query.email,
-        firstName: query.firstName,
-        lastName: query.lastName,
-        phone: query.phone,
+        clientId: query.clientId,
+        address: query.address,
+        city: query.city,
+        neighborhood: query.neighborhood,
+        state: query.state,
+        zipcode: query.zipcode,
         page: query.page,
         size: query.size,
       },

@@ -147,13 +147,13 @@
 				]
 			}
 		},
-		"/client/{id}": {
+		"/client/{clientId}": {
 			"get": {
 				"operationId": "GetClientByIdController_handle",
 				"summary": "Get client by id",
 				"parameters": [
 					{
-						"name": "id",
+						"name": "clientId",
 						"required": true,
 						"in": "path",
 						"description": "client id",
@@ -184,7 +184,7 @@
 				"summary": "Client update",
 				"parameters": [
 					{
-						"name": "id",
+						"name": "clientId",
 						"required": true,
 						"in": "path",
 						"description": "client id",
@@ -221,13 +221,56 @@
 				]
 			}
 		},
-		"/client-address/{id}": {
+		"/client/{clientId}/address": {
+			"post": {
+				"operationId": "CreateClientAddressController_handle",
+				"summary": "Create client address",
+				"parameters": [
+					{
+						"name": "clientId",
+						"required": true,
+						"in": "path",
+						"description": "client id",
+						"example": 92131231,
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateClientAddressDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClientAddressResponseDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Client Address"
+				]
+			}
+		},
+		"/client-address/{clientAddressId}": {
 			"get": {
 				"operationId": "GetClientAddressByIdController_handle",
 				"summary": "Get client address by id",
 				"parameters": [
 					{
-						"name": "id",
+						"name": "clientAddressId",
 						"required": true,
 						"in": "path",
 						"description": "Id do endereço",
@@ -253,13 +296,173 @@
 				"tags": [
 					"Client Address"
 				]
+			},
+			"patch": {
+				"operationId": "UpdateClientAddressController_handle",
+				"summary": "Update client address",
+				"parameters": [
+					{
+						"name": "clientAddressId",
+						"required": true,
+						"in": "path",
+						"description": "Id do endereço",
+						"example": 92131231,
+						"schema": {
+							"minimum": 1,
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateClientAddressDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClientAddressResponseDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Client Address"
+				]
+			}
+		},
+		"/client-address": {
+			"get": {
+				"operationId": "ListClientAddressController_handle",
+				"summary": "List client address",
+				"parameters": [
+					{
+						"name": "page",
+						"required": false,
+						"in": "query",
+						"description": "Page number",
+						"example": 1,
+						"schema": {
+							"minimum": 1,
+							"default": 1,
+							"type": "number"
+						}
+					},
+					{
+						"name": "size",
+						"required": false,
+						"in": "query",
+						"description": "Max size of content response, maximum of 50 elements",
+						"example": 25,
+						"schema": {
+							"minimum": 1,
+							"maximum": 50,
+							"default": 25,
+							"type": "number"
+						}
+					},
+					{
+						"name": "clientId",
+						"required": false,
+						"in": "query",
+						"description": "Client id",
+						"example": 1,
+						"schema": {
+							"type": "number"
+						}
+					},
+					{
+						"name": "address",
+						"required": false,
+						"in": "query",
+						"description": "Address",
+						"example": "Av. Sem Fim",
+						"schema": {
+							"minLength": 3,
+							"maxLength": 255,
+							"type": "string"
+						}
+					},
+					{
+						"name": "neighborhood",
+						"required": false,
+						"in": "query",
+						"description": "Address neighborhood",
+						"example": "Centro",
+						"schema": {
+							"minLength": 3,
+							"maxLength": 255,
+							"type": "string"
+						}
+					},
+					{
+						"name": "city",
+						"required": false,
+						"in": "query",
+						"description": "Address city",
+						"example": "Dois Irmãos",
+						"schema": {
+							"minLength": 3,
+							"maxLength": 255,
+							"type": "string"
+						}
+					},
+					{
+						"name": "state",
+						"required": false,
+						"in": "query",
+						"description": "Address state",
+						"example": "RS",
+						"schema": {
+							"minLength": 2,
+							"maxLength": 2,
+							"type": "string"
+						}
+					},
+					{
+						"name": "zipcode",
+						"required": false,
+						"in": "query",
+						"description": "Address postal code",
+						"example": "93950000",
+						"schema": {
+							"minLength": 8,
+							"maxLength": 8,
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FindClientResponseDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Client Address"
+				]
 			}
 		}
 	},
 	"info": {
 		"title": "Backend PIT",
 		"description": "Backend para ser utilizado no PIT",
-		"version": "0.2.0",
+		"version": "0.3.0",
 		"contact": {}
 	},
 	"tags": [],
@@ -326,6 +529,9 @@
 					"phone": {
 						"type": "string"
 					},
+					"favoriteAddressId": {
+						"type": "number"
+					},
 					"createdAt": {
 						"format": "date-time",
 						"type": "string"
@@ -341,6 +547,7 @@
 					"firstName",
 					"lastName",
 					"phone",
+					"favoriteAddressId",
 					"createdAt",
 					"updatedAt"
 				]
@@ -351,7 +558,7 @@
 					"content": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/ClientResponseDTO"
+							"$ref": "#/components/schemas/ClientAddressResponseDTO"
 						}
 					},
 					"numberOfElements": {
@@ -413,13 +620,78 @@
 						"maxLength": 11,
 						"description": "Client phone with area code",
 						"example": "51988777665"
+					},
+					"favoriteAddressId": {
+						"type": "number",
+						"description": "Client favorite address id",
+						"example": 42
+					}
+				}
+			},
+			"CreateClientAddressDTO": {
+				"type": "object",
+				"properties": {
+					"address": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 255,
+						"description": "Address",
+						"example": "Av. Sem Fim"
+					},
+					"number": {
+						"type": "number",
+						"description": "Address number",
+						"example": 42
+					},
+					"complement": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 255,
+						"description": "Address complement",
+						"example": "casa 71"
+					},
+					"neighborhood": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 255,
+						"description": "Address neighborhood",
+						"example": "Centro"
+					},
+					"city": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 255,
+						"description": "Address city",
+						"example": "Dois Irmãos"
+					},
+					"state": {
+						"type": "string",
+						"minLength": 2,
+						"maxLength": 2,
+						"description": "Address state",
+						"example": "RS"
+					},
+					"zipcode": {
+						"type": "string",
+						"minLength": 8,
+						"maxLength": 8,
+						"description": "Address postal code",
+						"example": "93950000"
+					},
+					"favorite": {
+						"type": "boolean",
+						"description": "Choose address as favorite from client",
+						"example": true
 					}
 				},
 				"required": [
-					"email",
-					"firstName",
-					"lastName",
-					"phone"
+					"address",
+					"number",
+					"complement",
+					"neighborhood",
+					"city",
+					"state",
+					"zipcode"
 				]
 			},
 			"ClientAddressResponseDTO": {
@@ -428,7 +700,7 @@
 					"id": {
 						"type": "number"
 					},
-					"accountId": {
+					"clientId": {
 						"type": "number"
 					},
 					"address": {
@@ -437,6 +709,9 @@
 					"number": {
 						"type": "number"
 					},
+					"complement": {
+						"type": "string"
+					},
 					"neighborhood": {
 						"type": "string"
 					},
@@ -444,9 +719,6 @@
 						"type": "string"
 					},
 					"state": {
-						"type": "string"
-					},
-					"country": {
 						"type": "string"
 					},
 					"zipcode": {
@@ -463,17 +735,69 @@
 				},
 				"required": [
 					"id",
-					"accountId",
+					"clientId",
 					"address",
 					"number",
+					"complement",
 					"neighborhood",
 					"city",
 					"state",
-					"country",
 					"zipcode",
 					"createdAt",
 					"updatedAt"
 				]
+			},
+			"UpdateClientAddressDTO": {
+				"type": "object",
+				"properties": {
+					"address": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 255,
+						"description": "Address",
+						"example": "Av. Sem Fim"
+					},
+					"number": {
+						"type": "number",
+						"description": "Address number",
+						"example": 42
+					},
+					"complement": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 255,
+						"description": "Address complement",
+						"example": "casa 71"
+					},
+					"neighborhood": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 255,
+						"description": "Address neighborhood",
+						"example": "Centro"
+					},
+					"city": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 255,
+						"description": "Address city",
+						"example": "Dois Irmãos"
+					},
+					"state": {
+						"type": "string",
+						"minLength": 2,
+						"maxLength": 2,
+						"description": "Address state",
+						"example": "RS"
+					},
+					"zipcode": {
+						"type": "string",
+						"minLength": 8,
+						"maxLength": 8,
+						"description": "Address postal code",
+						"example": "93950000"
+					}
+				}
 			}
 		}
 	}

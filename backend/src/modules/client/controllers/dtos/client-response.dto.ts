@@ -6,6 +6,7 @@ export class ClientResponseDTO implements Client {
   firstName: string;
   lastName: string;
   phone: string;
+  favoriteAddressId: number;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -11,26 +11,27 @@ datasource db {
 }
 
 model Client {
-  id        Int             @id @default(autoincrement())
-  email     String          @unique @db.VarChar(128)
-  firstName String          @db.VarChar(64)
-  lastName  String          @db.VarChar(64)
-  phone     String          @db.Char(11)
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @updatedAt
-  addresses ClientAddress[]
+  id                Int             @id @default(autoincrement())
+  email             String          @unique @db.VarChar(128)
+  firstName         String          @db.VarChar(64)
+  lastName          String          @db.VarChar(64)
+  phone             String          @db.Char(11)
+  favoriteAddressId Int?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  addresses         ClientAddress[]
 }
 
 model ClientAddress {
   id           Int      @id @default(autoincrement())
-  client       Client?  @relation(fields: [accountId], references: [id])
-  accountId    Int
-  address      String   @db.VarChar(255)
+  client       Client?  @relation(fields: [clientId], references: [id])
+  clientId     Int
+  address      String   @db.VarChar(128)
   number       Int
-  neighborhood String   @db.VarChar(255)
-  city         String   @db.VarChar(255)
-  state        String   @db.VarChar(255)
-  country      String   @db.VarChar(255)
+  complement   String   @db.VarChar(128)
+  neighborhood String   @db.VarChar(128)
+  city         String   @db.VarChar(128)
+  state        String   @db.Char(2)
   zipcode      String   @db.Char(8)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

@@ -11,5 +11,5 @@ export class ClientAddressIdDTO {
   @Min(1)
   @IsInt()
   @Type((_) => Number)
-  id: number;
+  clientAddressId: number;
 }
