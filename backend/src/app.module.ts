@@ -5,9 +5,16 @@ import { ClientAddressModule } from './modules/client-address/client-address.mod
 import { ClientModule } from './modules/client/client.module';
 import { CupcakeModule } from './modules/cupcake/cupcake.module';
 import { SharedModule } from './modules/shared/shared.module';
+import { StoreModule } from './modules/store/store.module';
 
 @Module({
-  imports: [SharedModule, ClientModule, ClientAddressModule, CupcakeModule],
+  imports: [
+    SharedModule,
+    ClientModule,
+    ClientAddressModule,
+    CupcakeModule,
+    StoreModule,
+  ],
   controllers: [AppController],
 })
 export class AppModule {}

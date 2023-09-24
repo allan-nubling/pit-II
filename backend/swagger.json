@@ -563,12 +563,144 @@
 					"Cupcake"
 				]
 			}
+		},
+		"/store": {
+			"get": {
+				"operationId": "ListStoreController_handle",
+				"summary": "List cupcakes",
+				"parameters": [
+					{
+						"name": "page",
+						"required": false,
+						"in": "query",
+						"description": "Page number",
+						"example": 1,
+						"schema": {
+							"minimum": 1,
+							"default": 1,
+							"type": "number"
+						}
+					},
+					{
+						"name": "size",
+						"required": false,
+						"in": "query",
+						"description": "Max size of content response, maximum of 50 elements",
+						"example": 25,
+						"schema": {
+							"minimum": 1,
+							"maximum": 50,
+							"default": 25,
+							"type": "number"
+						}
+					},
+					{
+						"name": "name",
+						"required": false,
+						"in": "query",
+						"description": "Store name",
+						"example": "Cupcake Mania",
+						"schema": {
+							"minLength": 3,
+							"maxLength": 255,
+							"type": "string"
+						}
+					},
+					{
+						"name": "address",
+						"required": false,
+						"in": "query",
+						"description": "Store address",
+						"example": "Av. Sem Fim",
+						"schema": {
+							"minLength": 3,
+							"maxLength": 255,
+							"type": "string"
+						}
+					},
+					{
+						"name": "neighborhood",
+						"required": false,
+						"in": "query",
+						"description": "Store address neighborhood",
+						"example": "Centro",
+						"schema": {
+							"minLength": 3,
+							"maxLength": 255,
+							"type": "string"
+						}
+					},
+					{
+						"name": "city",
+						"required": false,
+						"in": "query",
+						"description": "Store address city",
+						"example": "Dois Irmãos",
+						"schema": {
+							"minLength": 3,
+							"maxLength": 255,
+							"type": "string"
+						}
+					},
+					{
+						"name": "state",
+						"required": false,
+						"in": "query",
+						"description": "Store address state",
+						"example": "RS",
+						"schema": {
+							"minLength": 2,
+							"maxLength": 2,
+							"type": "string"
+						}
+					},
+					{
+						"name": "zipcode",
+						"required": false,
+						"in": "query",
+						"description": "Store address postal code",
+						"example": "93950000",
+						"schema": {
+							"minLength": 8,
+							"maxLength": 8,
+							"type": "string"
+						}
+					},
+					{
+						"name": "servedZipcode",
+						"required": false,
+						"in": "query",
+						"description": "Store which serves this postal code",
+						"example": "93950000",
+						"schema": {
+							"minLength": 8,
+							"maxLength": 8,
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ListStoreResponseDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Store"
+				]
+			}
 		}
 	},
 	"info": {
 		"title": "Backend PIT",
 		"description": "Backend para ser utilizado no PIT",
-		"version": "0.3.0",
+		"version": "0.5.0",
 		"contact": {}
 	},
 	"tags": [],
@@ -1009,6 +1141,89 @@
 						"type": "array",
 						"items": {
 							"$ref": "#/components/schemas/CupcakeResponseDTO"
+						}
+					},
+					"numberOfElements": {
+						"type": "number"
+					},
+					"totalElements": {
+						"type": "number"
+					},
+					"page": {
+						"type": "number"
+					},
+					"totalPages": {
+						"type": "number"
+					},
+					"hasContent": {
+						"type": "boolean"
+					},
+					"nextPage": {
+						"type": "number"
+					},
+					"previousPage": {
+						"type": "number"
+					}
+				},
+				"required": [
+					"content",
+					"numberOfElements",
+					"totalElements",
+					"page",
+					"totalPages",
+					"hasContent"
+				]
+			},
+			"StoreResponseDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"name": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"number": {
+						"type": "number"
+					},
+					"complement": {
+						"type": "string"
+					},
+					"neighborhood": {
+						"type": "string"
+					},
+					"city": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string"
+					},
+					"zipcode": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"address",
+					"number",
+					"complement",
+					"neighborhood",
+					"city",
+					"state",
+					"zipcode"
+				]
+			},
+			"ListStoreResponseDTO": {
+				"type": "object",
+				"properties": {
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StoreResponseDTO"
 						}
 					},
 					"numberOfElements": {
