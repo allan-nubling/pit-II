@@ -3,4 +3,5 @@ export enum SwaggerTags {
   client = 'Client',
   clientAddress = 'Client Address',
   cupcake = 'Cupcake',
+  store = 'Store',
 }
