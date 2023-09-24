@@ -13,8 +13,9 @@ datasource db {
 model Client {
   id        Int             @id @default(autoincrement())
   email     String          @unique @db.VarChar(128)
-  name      String          @db.VarChar(128)
-  phone     String          @db.VarChar(16)
+  firstName String          @db.VarChar(64)
+  lastName  String          @db.VarChar(64)
+  phone     String          @db.Char(11)
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
   addresses ClientAddress[]

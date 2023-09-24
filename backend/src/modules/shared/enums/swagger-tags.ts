@@ -1,5 +1,5 @@
 export enum SwaggerTags {
   app = 'Application',
-  client = 'Cliente',
-  clientAddress = 'Endereços de Clientes',
+  client = 'Client',
+  clientAddress = 'Client Address',
 }

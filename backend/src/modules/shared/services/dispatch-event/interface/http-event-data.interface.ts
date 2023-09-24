@@ -6,4 +6,5 @@ export interface HttpEventData {
   params?: object;
   headers?: object;
   body?: object;
+  query?: object;
 }

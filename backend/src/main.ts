@@ -17,7 +17,6 @@ async function bootstrap() {
     .setTitle('Backend PIT')
     .setDescription(process.env[AppEnvironment.serviceDescription])
     .setVersion(process.env[AppEnvironment.serviceVersion])
-    // .addServer('-', 'production')
     .addServer(`http://localhost:${port}`, 'development')
     .build();
 

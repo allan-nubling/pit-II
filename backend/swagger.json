@@ -4,6 +4,7 @@
 		"/app/health-check": {
 			"get": {
 				"operationId": "AppController_healthCheck",
+				"summary": "Check if application is healthy",
 				"parameters": [],
 				"responses": {
 					"200": {
@@ -22,15 +23,140 @@
 				]
 			}
 		},
+		"/client": {
+			"post": {
+				"operationId": "CreateClientController_handle",
+				"summary": "Client create",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateClientDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClientResponseDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Client"
+				]
+			},
+			"get": {
+				"operationId": "ListClientController_handle",
+				"summary": "List clients",
+				"parameters": [
+					{
+						"name": "page",
+						"required": false,
+						"in": "query",
+						"description": "Page number",
+						"example": 1,
+						"schema": {
+							"minimum": 1,
+							"default": 1,
+							"type": "number"
+						}
+					},
+					{
+						"name": "size",
+						"required": false,
+						"in": "query",
+						"description": "Max size of content response, maximum of 50 elements",
+						"example": 25,
+						"schema": {
+							"minimum": 1,
+							"maximum": 50,
+							"default": 25,
+							"type": "number"
+						}
+					},
+					{
+						"name": "email",
+						"required": false,
+						"in": "query",
+						"description": "Client mail",
+						"example": "fulano.tal@domain.com",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "firstName",
+						"required": false,
+						"in": "query",
+						"description": "Client first name",
+						"example": "Fulano",
+						"schema": {
+							"minLength": 3,
+							"maxLength": 64,
+							"type": "string"
+						}
+					},
+					{
+						"name": "lastName",
+						"required": false,
+						"in": "query",
+						"description": "Client last name",
+						"example": "Tal",
+						"schema": {
+							"minLength": 3,
+							"maxLength": 64,
+							"type": "string"
+						}
+					},
+					{
+						"name": "phone",
+						"required": false,
+						"in": "query",
+						"description": "Client phone with area code",
+						"example": "51988777665",
+						"schema": {
+							"minLength": 11,
+							"maxLength": 11,
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FindClientResponseDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Client"
+				]
+			}
+		},
 		"/client/{id}": {
 			"get": {
 				"operationId": "GetClientByIdController_handle",
+				"summary": "Get client by id",
 				"parameters": [
 					{
 						"name": "id",
 						"required": true,
 						"in": "path",
-						"description": "Id do cliente",
+						"description": "client id",
 						"example": 92131231,
 						"schema": {
 							"type": "number"
@@ -43,20 +169,62 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ClientDTO"
+									"$ref": "#/components/schemas/ClientResponseDTO"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Cliente"
+					"Client"
+				]
+			},
+			"patch": {
+				"operationId": "UpdateClientController_handle",
+				"summary": "Client update",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"description": "client id",
+						"example": 92131231,
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateClientDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ClientResponseDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Client"
 				]
 			}
 		},
 		"/client-address/{id}": {
 			"get": {
 				"operationId": "GetClientAddressByIdController_handle",
+				"summary": "Get client address by id",
 				"parameters": [
 					{
 						"name": "id",
@@ -65,6 +233,7 @@
 						"description": "Id do endereço",
 						"example": 92131231,
 						"schema": {
+							"minimum": 1,
 							"type": "number"
 						}
 					}
@@ -75,14 +244,14 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ClientAddressDTO"
+									"$ref": "#/components/schemas/ClientAddressResponseDTO"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Cliente"
+					"Client Address"
 				]
 			}
 		}
@@ -90,7 +259,7 @@
 	"info": {
 		"title": "Backend PIT",
 		"description": "Backend para ser utilizado no PIT",
-		"version": "0.1.0",
+		"version": "0.2.0",
 		"contact": {}
 	},
 	"tags": [],
@@ -102,7 +271,44 @@
 	],
 	"components": {
 		"schemas": {
-			"ClientDTO": {
+			"CreateClientDTO": {
+				"type": "object",
+				"properties": {
+					"email": {
+						"type": "string",
+						"description": "Client mail",
+						"example": "fulano.tal@domain.com"
+					},
+					"firstName": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 64,
+						"description": "Client first name",
+						"example": "Fulano"
+					},
+					"lastName": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 64,
+						"description": "Client last name",
+						"example": "Tal"
+					},
+					"phone": {
+						"type": "string",
+						"minLength": 11,
+						"maxLength": 11,
+						"description": "Client phone with area code",
+						"example": "51988777665"
+					}
+				},
+				"required": [
+					"email",
+					"firstName",
+					"lastName",
+					"phone"
+				]
+			},
+			"ClientResponseDTO": {
 				"type": "object",
 				"properties": {
 					"id": {
@@ -111,7 +317,10 @@
 					"email": {
 						"type": "string"
 					},
-					"name": {
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
 						"type": "string"
 					},
 					"phone": {
@@ -129,13 +338,91 @@
 				"required": [
 					"id",
 					"email",
-					"name",
+					"firstName",
+					"lastName",
 					"phone",
 					"createdAt",
 					"updatedAt"
 				]
 			},
-			"ClientAddressDTO": {
+			"FindClientResponseDTO": {
+				"type": "object",
+				"properties": {
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ClientResponseDTO"
+						}
+					},
+					"numberOfElements": {
+						"type": "number"
+					},
+					"totalElements": {
+						"type": "number"
+					},
+					"page": {
+						"type": "number"
+					},
+					"totalPages": {
+						"type": "number"
+					},
+					"hasContent": {
+						"type": "boolean"
+					},
+					"nextPage": {
+						"type": "number"
+					},
+					"previousPage": {
+						"type": "number"
+					}
+				},
+				"required": [
+					"content",
+					"numberOfElements",
+					"totalElements",
+					"page",
+					"totalPages",
+					"hasContent"
+				]
+			},
+			"UpdateClientDTO": {
+				"type": "object",
+				"properties": {
+					"email": {
+						"type": "string",
+						"description": "Client mail",
+						"example": "fulano.tal@domain.com"
+					},
+					"firstName": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 64,
+						"description": "Client first name",
+						"example": "Fulano"
+					},
+					"lastName": {
+						"type": "string",
+						"minLength": 3,
+						"maxLength": 64,
+						"description": "Client last name",
+						"example": "Tal"
+					},
+					"phone": {
+						"type": "string",
+						"minLength": 11,
+						"maxLength": 11,
+						"description": "Client phone with area code",
+						"example": "51988777665"
+					}
+				},
+				"required": [
+					"email",
+					"firstName",
+					"lastName",
+					"phone"
+				]
+			},
+			"ClientAddressResponseDTO": {
 				"type": "object",
 				"properties": {
 					"id": {

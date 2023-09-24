@@ -9,6 +9,7 @@ module.exports = {
     '@typescript-eslint/eslint-plugin',
     'prettier',
     'eslint-plugin-import-helpers',
+    'unused-imports',
   ],
   extends: [
     'plugin:@typescript-eslint/recommended',
@@ -21,6 +22,9 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
+    'no-console': 'error',
+    'unused-imports/no-unused-imports': 'error',
+
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
