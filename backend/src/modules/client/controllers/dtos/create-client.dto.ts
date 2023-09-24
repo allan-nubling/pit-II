@@ -1,8 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { Client } from '@prisma/client';
 import { IsAlpha, IsEmail, IsNumberString, Length } from 'class-validator';
 
-export class CreateClientDTO {
+export class CreateClientDTO
+  implements
+    Omit<Client, 'id' | 'favoriteAddressId' | 'createdAt' | 'updatedAt'>
+{
   @ApiProperty({
     description: 'Client mail',
     example: 'fulano.tal@domain.com',

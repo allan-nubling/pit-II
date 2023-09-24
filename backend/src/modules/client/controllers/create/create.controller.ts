@@ -22,7 +22,12 @@ export class CreateClientController {
     @DefaultHeaders() headers,
   ): Promise<ClientResponseDTO> {
     return this.command.execute({
-      input: body,
+      input: {
+        email: body.email,
+        firstName: body.firstName,
+        lastName: body.lastName,
+        phone: body.phone,
+      },
       eventData: { type: EventType.http, body, headers },
     });
   }

@@ -10,5 +10,5 @@ export class ClientIdDTO {
   })
   @IsInt()
   @Type((_) => Number)
-  id: number;
+  clientId: number;
 }

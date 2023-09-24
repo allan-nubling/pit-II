@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Param, Patch } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { DefaultHeaders } from 'src/modules/shared/decorator/default-headers.decorator';
@@ -8,22 +8,24 @@ import { EventType } from 'src/modules/shared/services/dispatch-event/interface/
 
 import { ClientAddressIdDTO } from '../dtos/client-address-id.dto';
 import { ClientAddressResponseDTO } from '../dtos/client-address-response.dto';
-import { GetClientAddressByIdCommand } from './get-by-id.command';
+import { UpdateClientAddressDTO } from '../dtos/update-client-address.dto';
+import { UpdateClientAddressCommand } from './update.command';
 
 @ApiTags(SwaggerTags.clientAddress)
 @Controller(AppControllers.clientAddress)
-export class GetClientAddressByIdController {
-  constructor(private readonly command: GetClientAddressByIdCommand) {}
+export class UpdateClientAddressController {
+  constructor(private readonly command: UpdateClientAddressCommand) {}
 
-  @ApiOperation({ summary: 'Get client address by id' })
-  @Get(':clientAddressId')
+  @ApiOperation({ summary: 'Update client address' })
+  @Patch(':clientAddressId')
   handle(
     @Param() params: ClientAddressIdDTO,
+    @Body() body: UpdateClientAddressDTO,
     @DefaultHeaders() headers,
   ): Promise<ClientAddressResponseDTO> {
     return this.command.execute({
-      input: params,
-      eventData: { type: EventType.http, params, headers },
+      input: { ...body, ...params },
+      eventData: { type: EventType.http, params, body, headers },
     });
   }
 }
