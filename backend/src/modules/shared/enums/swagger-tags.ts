@@ -3,5 +3,6 @@ export enum SwaggerTags {
   client = 'Client',
   clientAddress = 'Client Address',
   cupcake = 'Cupcake',
+  order = 'Order',
   store = 'Store',
 }

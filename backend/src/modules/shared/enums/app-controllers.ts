@@ -3,5 +3,6 @@ export enum AppControllers {
   client = 'client',
   clientAddress = 'client-address',
   cupcake = 'cupcake',
+  order = 'order',
   store = 'store',
 }

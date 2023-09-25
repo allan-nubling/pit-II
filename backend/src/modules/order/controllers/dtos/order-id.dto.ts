@@ -3,13 +3,13 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsInt, Min } from 'class-validator';
 
-export class ClientAddressIdDTO {
+export class OrderIdDTO {
   @ApiProperty({
-    description: 'Address id',
-    example: 92131231,
+    description: 'Order id',
+    example: 123123,
   })
   @Min(1)
   @IsInt()
   @Type((_) => Number)
-  clientAddressId: number;
+  orderId: number;
 }

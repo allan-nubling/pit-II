@@ -15,5 +15,6 @@ import { CupcakeRepository } from './gateways/cupcake-repository.gateway';
     ListCategoryCommand,
     ListCupcakeCommand,
   ],
+  exports: [CupcakeRepository],
 })
 export class CupcakeModule {}

@@ -273,7 +273,7 @@
 						"name": "clientAddressId",
 						"required": true,
 						"in": "path",
-						"description": "Id do endereço",
+						"description": "Address id",
 						"example": 92131231,
 						"schema": {
 							"minimum": 1,
@@ -305,7 +305,7 @@
 						"name": "clientAddressId",
 						"required": true,
 						"in": "path",
-						"description": "Id do endereço",
+						"description": "Address id",
 						"example": 92131231,
 						"schema": {
 							"minimum": 1,
@@ -447,7 +447,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ListClientResponseDTO"
+									"$ref": "#/components/schemas/ListClientAddressResponseDTO"
 								}
 							}
 						}
@@ -561,6 +561,161 @@
 				},
 				"tags": [
 					"Cupcake"
+				]
+			}
+		},
+		"/client/{clientId}/order": {
+			"post": {
+				"operationId": "CreateOrderController_handle",
+				"summary": "Create client address",
+				"parameters": [
+					{
+						"name": "clientId",
+						"required": true,
+						"in": "path",
+						"description": "client id",
+						"example": 92131231,
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateOrderDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OrderEntity"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Order"
+				]
+			}
+		},
+		"/order/{orderId}": {
+			"get": {
+				"operationId": "GetOrderByIdController_handle",
+				"summary": "Get client address by id",
+				"parameters": [
+					{
+						"name": "orderId",
+						"required": true,
+						"in": "path",
+						"description": "Order id",
+						"example": 123123,
+						"schema": {
+							"minimum": 1,
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OrderEntity"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Order"
+				]
+			}
+		},
+		"/order": {
+			"get": {
+				"operationId": "ListOrderController_handle",
+				"summary": "List orders",
+				"parameters": [
+					{
+						"name": "page",
+						"required": false,
+						"in": "query",
+						"description": "Page number",
+						"example": 1,
+						"schema": {
+							"minimum": 1,
+							"default": 1,
+							"type": "number"
+						}
+					},
+					{
+						"name": "size",
+						"required": false,
+						"in": "query",
+						"description": "Max size of content response, maximum of 50 elements",
+						"example": 25,
+						"schema": {
+							"minimum": 1,
+							"maximum": 50,
+							"default": 25,
+							"type": "number"
+						}
+					},
+					{
+						"name": "clientId",
+						"required": false,
+						"in": "query",
+						"description": "Client id",
+						"example": 1,
+						"schema": {
+							"type": "number"
+						}
+					},
+					{
+						"name": "addressId",
+						"required": false,
+						"in": "query",
+						"description": "Address id of client",
+						"example": 42,
+						"schema": {
+							"type": "number"
+						}
+					},
+					{
+						"name": "storeId",
+						"required": false,
+						"in": "query",
+						"description": "Selected store id",
+						"example": 1234,
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ListOrderResponseDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Order"
 				]
 			}
 		},
@@ -700,7 +855,7 @@
 	"info": {
 		"title": "Backend PIT",
 		"description": "Backend para ser utilizado no PIT",
-		"version": "0.5.0",
+		"version": "0.6.0",
 		"contact": {}
 	},
 	"tags": [],
@@ -796,7 +951,7 @@
 					"content": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/ClientAddressResponseDTO"
+							"$ref": "#/components/schemas/ClientResponseDTO"
 						}
 					},
 					"numberOfElements": {
@@ -985,6 +1140,46 @@
 					"updatedAt"
 				]
 			},
+			"ListClientAddressResponseDTO": {
+				"type": "object",
+				"properties": {
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ClientAddressResponseDTO"
+						}
+					},
+					"numberOfElements": {
+						"type": "number"
+					},
+					"totalElements": {
+						"type": "number"
+					},
+					"page": {
+						"type": "number"
+					},
+					"totalPages": {
+						"type": "number"
+					},
+					"hasContent": {
+						"type": "boolean"
+					},
+					"nextPage": {
+						"type": "number"
+					},
+					"previousPage": {
+						"type": "number"
+					}
+				},
+				"required": [
+					"content",
+					"numberOfElements",
+					"totalElements",
+					"page",
+					"totalPages",
+					"hasContent"
+				]
+			},
 			"UpdateClientAddressDTO": {
 				"type": "object",
 				"properties": {
@@ -1141,6 +1336,197 @@
 						"type": "array",
 						"items": {
 							"$ref": "#/components/schemas/CupcakeResponseDTO"
+						}
+					},
+					"numberOfElements": {
+						"type": "number"
+					},
+					"totalElements": {
+						"type": "number"
+					},
+					"page": {
+						"type": "number"
+					},
+					"totalPages": {
+						"type": "number"
+					},
+					"hasContent": {
+						"type": "boolean"
+					},
+					"nextPage": {
+						"type": "number"
+					},
+					"previousPage": {
+						"type": "number"
+					}
+				},
+				"required": [
+					"content",
+					"numberOfElements",
+					"totalElements",
+					"page",
+					"totalPages",
+					"hasContent"
+				]
+			},
+			"ShoppingBagDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"description": "Cupcake id",
+						"example": 42
+					},
+					"quantity": {
+						"type": "number",
+						"minimum": 1,
+						"description": "Quantity of cupcakes",
+						"example": 42
+					}
+				},
+				"required": [
+					"id",
+					"quantity"
+				]
+			},
+			"CreateOrderDTO": {
+				"type": "object",
+				"properties": {
+					"addressId": {
+						"type": "number",
+						"description": "Address id to delivery",
+						"example": 42
+					},
+					"storeId": {
+						"type": "number",
+						"description": "Selected store id",
+						"example": 1234
+					},
+					"shoppingBag": {
+						"description": "Selected cupcakes",
+						"example": [
+							{
+								"id": 1,
+								"quantity": 5
+							},
+							{
+								"id": 2,
+								"quantity": 5
+							},
+							{
+								"id": 1,
+								"quantity": 1
+							}
+						],
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ShoppingBagDTO"
+						}
+					},
+					"paymentMethod": {
+						"type": "string",
+						"description": "Selected store id",
+						"enum": [
+							"card",
+							"cash",
+							"pix"
+						],
+						"example": "pix"
+					}
+				},
+				"required": [
+					"addressId",
+					"storeId",
+					"shoppingBag",
+					"paymentMethod"
+				]
+			},
+			"OrderCupcakeEntity": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"ingredients": {
+						"type": "string"
+					},
+					"value": {
+						"type": "number"
+					},
+					"quantity": {
+						"type": "number"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"description",
+					"ingredients",
+					"value",
+					"quantity"
+				]
+			},
+			"OrderEntity": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"clientId": {
+						"type": "number"
+					},
+					"addressId": {
+						"type": "number"
+					},
+					"storeId": {
+						"type": "number"
+					},
+					"cupcakes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/OrderCupcakeEntity"
+						}
+					},
+					"value": {
+						"$ref": "#/components/schemas/i"
+					},
+					"paymentMethod": {
+						"type": "string"
+					},
+					"createdAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"updatedAt": {
+						"format": "date-time",
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"clientId",
+					"addressId",
+					"storeId",
+					"cupcakes",
+					"value",
+					"paymentMethod",
+					"createdAt",
+					"updatedAt"
+				]
+			},
+			"ListOrderResponseDTO": {
+				"type": "object",
+				"properties": {
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/OrderEntity"
 						}
 					},
 					"numberOfElements": {

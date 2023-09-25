@@ -29,7 +29,7 @@ model ClientAddress {
   clientId     Int
   address      String   @db.VarChar(128)
   number       Int
-  complement   String?   @db.VarChar(128)
+  complement   String?  @db.VarChar(128)
   neighborhood String   @db.VarChar(128)
   city         String   @db.VarChar(128)
   state        String   @db.Char(2)
@@ -60,7 +60,7 @@ model Store {
   name               String               @db.VarChar(128)
   address            String               @db.VarChar(128)
   number             Int
-  complement         String?               @db.VarChar(128)
+  complement         String?              @db.VarChar(128)
   neighborhood       String               @db.VarChar(128)
   city               String               @db.VarChar(128)
   state              String               @db.Char(2)
@@ -79,13 +79,15 @@ model StoreDeliveryRange {
 
 model Order {
   id            Int            @id @default(autoincrement())
-  client        Client?        @relation(fields: [clientId], references: [id])
+  client        Client        @relation(fields: [clientId], references: [id])
   clientId      Int
-  address       ClientAddress? @relation(fields: [addressId], references: [id])
+  address       ClientAddress @relation(fields: [addressId], references: [id])
   addressId     Int
-  store         Store?         @relation(fields: [storeId], references: [id])
+  store         Store         @relation(fields: [storeId], references: [id])
   storeId       Int
   cupcakes      Json
   value         Decimal        @db.Money
   paymentMethod String         @db.VarChar(128)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }

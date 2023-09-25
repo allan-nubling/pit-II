@@ -10,6 +10,7 @@ import { ListClientAddressController } from './controllers/list/list.controller'
 import { UpdateClientAddressCommand } from './controllers/update/update.command';
 import { UpdateClientAddressController } from './controllers/update/update.controller';
 import { ClientAddressRepository } from './gateways/client-address-repository.gateway';
+import { ValidateClientAddressService } from './services/validate-client-address.service';
 
 @Module({
   imports: [forwardRef(() => ClientModule)],
@@ -25,7 +26,8 @@ import { ClientAddressRepository } from './gateways/client-address-repository.ga
     GetClientAddressByIdCommand,
     ListClientAddressCommand,
     UpdateClientAddressCommand,
+    ValidateClientAddressService,
   ],
-  exports: [ClientAddressRepository],
+  exports: [ClientAddressRepository, ValidateClientAddressService],
 })
 export class ClientAddressModule {}
