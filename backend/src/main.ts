@@ -22,8 +22,10 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(`/api`, app, document);
-  writeFileSync('./swagger.json', JSON.stringify(document, null, '\t'));
-  apiLogger.log(`Docs available on http://localhost:${port}/api`);
+  if (process.env.NODE_ENV !== 'production') {
+    writeFileSync('./swagger.json', JSON.stringify(document, null, '\t'));
+    apiLogger.log(`Docs available on http://localhost:${port}/api`);
+  }
 
   app.useGlobalPipes(
     new ValidationPipe({

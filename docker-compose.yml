@@ -1,18 +1,26 @@
 services:
-  redis:
-    image: bitnami/redis:latest
-    container_name: redis
-    # network_mode: "host"
-    environment:
-      - REDIS_PASSWORD=root
-    ports:
-      - 6379:6379
   database:
+    container_name: pit2-database
     image: postgres:latest
-    # network_mode: "host"
     environment:
-      POSTGRES_DB: "pit"
-      POSTGRES_USER: "sys@pit"
-      POSTGRES_PASSWORD: "Postgres@PIT-II!"
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"
+
+  backend:
+    container_name: pit2-backend
+    build:
+      context: ./backend
+      tags:
+        - "allan-nubling/pit2-backend"
+    depends_on:
+      - database
+    environment:
+      DB_HOST: pit2-database
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+    ports:
+      - "3000:3000"
