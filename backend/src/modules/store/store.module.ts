@@ -7,5 +7,6 @@ import { StoreRepository } from './gateways/store-repository.gateway';
 @Module({
   controllers: [ListStoreController],
   providers: [StoreRepository, ListStoreCommand],
+  exports: [StoreRepository],
 })
 export class StoreModule {}

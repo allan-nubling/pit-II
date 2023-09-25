@@ -5,7 +5,7 @@ import { Client } from '@prisma/client';
 import { CommandEventHandler } from 'src/modules/shared/decorator/command-event-handler.decorator';
 import { DispatchEventService } from 'src/modules/shared/services/dispatch-event/dispatch-event.service';
 
-import { ClientAddressRepository } from 'src/modules/client-address/gateways/client-address-repository.gateway';
+import { ValidateClientAddressService } from 'src/modules/client-address/services/validate-client-address.service';
 
 import { Command, CommandInput } from '../../../shared/abstractions/command';
 import { ClientRepository } from '../../gateways/client-repository.gateway';
@@ -17,7 +17,7 @@ export class UpdateClientCommand extends Command {
   constructor(
     event: DispatchEventService,
     private readonly repository: ClientRepository,
-    private readonly addressRepository: ClientAddressRepository,
+    private readonly validateAddress: ValidateClientAddressService,
   ) {
     super(event);
   }
@@ -27,9 +27,9 @@ export class UpdateClientCommand extends Command {
     input: { clientId, ...data },
   }: CommandInput<ClientIdDTO & UpdateClientDTO>): Promise<Client> {
     if (data.favoriteAddressId)
-      await this.addressRepository.getOrThrow({
-        clientId,
+      await this.validateAddress.execute({
         id: data.favoriteAddressId,
+        clientId,
       });
     return await this.repository.update({ where: { id: clientId }, data });
   }

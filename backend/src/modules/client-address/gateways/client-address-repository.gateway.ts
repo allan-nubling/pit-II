@@ -9,7 +9,7 @@ import {
 } from 'src/modules/shared/abstractions/repository-pagination';
 import { PrismaGateway } from 'src/modules/shared/gateways/prisma.gateway';
 
-import { ClientNotFoundException } from 'src/modules/client/exceptions/client-not-found.exception';
+import { InvalidClientException } from 'src/modules/client/exceptions/invalid-client.exception';
 
 import { ClientAddressNotFoundException } from '../exceptions/client-address-not-found.exception';
 
@@ -63,7 +63,7 @@ export class ClientAddressRepository extends RepositoryPagination<ClientAddress>
       });
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code === 'P2003') throw new ClientNotFoundException();
+        if (e.code === 'P2003') throw new InvalidClientException();
       }
       throw e;
     }

@@ -18,10 +18,18 @@ export class ClientRepository extends RepositoryPagination<Client> {
     super();
   }
 
-  get(where: Prisma.ClientWhereUniqueInput): Promise<Client | null> {
-    return this.prisma.client.findUnique({ where });
+  async getOrThrow(
+    where: Prisma.ClientWhereUniqueInput,
+  ): Promise<Client | null> {
+    try {
+      return await this.prisma.client.findUniqueOrThrow({ where });
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === 'P2025') throw new ClientNotFoundException();
+      }
+      throw e;
+    }
   }
-
   async list({
     size = 25,
     page = 1,

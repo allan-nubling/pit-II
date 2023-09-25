@@ -6,7 +6,6 @@ import { CommandEventHandler } from 'src/modules/shared/decorator/command-event-
 import { DispatchEventService } from 'src/modules/shared/services/dispatch-event/dispatch-event.service';
 
 import { Command, CommandInput } from '../../../shared/abstractions/command';
-import { ClientNotFoundException } from '../../exceptions/client-not-found.exception';
 import { ClientRepository } from '../../gateways/client-repository.gateway';
 import { ClientIdDTO } from '../dtos/client-id.dto';
 
@@ -21,8 +20,6 @@ export class GetClientByIdCommand extends Command {
 
   @CommandEventHandler('clientId')
   async execute({ input }: CommandInput<ClientIdDTO>): Promise<Client> {
-    const client = await this.repository.get({ id: input.clientId });
-    if (!client) throw new ClientNotFoundException();
-    return client;
+    return await this.repository.getOrThrow({ id: input.clientId });
   }
 }
