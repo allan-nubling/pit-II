@@ -14,10 +14,7 @@ services:
 
   backend:
     container_name: pit2-backend
-    build:
-      context: ./backend
-      tags:
-        - "nubling/pit2-backend"
+    image: nubling/pit2-backend
     depends_on:
       - database
     restart: always
@@ -32,10 +29,7 @@ services:
 
   frontend:
     container_name: pit2-frontend
-    build:
-      context: ./frontend
-      tags:
-        - "nubling/pit2-frontend"
+    image: nubling/pit2-frontend
     depends_on:
       - database
       - backend
