@@ -13,18 +13,19 @@ async function bootstrap() {
   const apiLogger = new Logger('Api');
 
   const port = process.env.PORT || 3000;
+  const host = process.env.HOST || `http://localhost:${port}`;
   const config = new DocumentBuilder()
     .setTitle('Backend PIT')
     .setDescription(process.env[AppEnvironment.serviceDescription])
     .setVersion(process.env[AppEnvironment.serviceVersion])
-    .addServer(`http://localhost:${port}`, 'development')
+    .addServer(host)
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(`/api`, app, document);
   if (process.env.NODE_ENV !== 'production') {
     writeFileSync('./swagger.json', JSON.stringify(document, null, '\t'));
-    apiLogger.log(`Docs available on http://localhost:${port}/api`);
+    apiLogger.log(`Docs available on ${host}/api`);
   }
 
   app.useGlobalPipes(

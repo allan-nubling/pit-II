@@ -22,5 +22,6 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_DATABASE: ${DB_DATABASE}
+      HOST: ${BACKEND_HOST}
     ports:
       - "3000:3000"
