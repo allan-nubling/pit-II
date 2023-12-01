@@ -102,7 +102,12 @@ export async function createAccountAddressAction(
         errors: { request: err.response?.data?.message || err.message },
       };
     }
-    return { errors: { request: err.message } };
+    if (err instanceof Error) {
+      return {
+        errors: { request: err.message },
+      };
+    }
+    return { errors: { request: "Falha na requisição" } };
   }
   redirect(`/account/${accountCookie.value}`);
 }

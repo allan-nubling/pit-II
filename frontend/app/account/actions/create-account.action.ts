@@ -67,6 +67,11 @@ export async function createAccountAction(
         errors: { request: err.response?.data?.message || err.message },
       };
     }
-    return { errors: { request: err.message } };
+    if (err instanceof Error) {
+      return {
+        errors: { request: err.message },
+      };
+    }
+    return { errors: { request: "Falha na requisição" } };
   }
 }
