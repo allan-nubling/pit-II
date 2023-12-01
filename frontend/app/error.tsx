@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 
+import image from "@/public/page_not_found.svg";
+
 export default function Error({
   error,
   reset,
@@ -24,6 +26,13 @@ export default function Error({
       >
         Try again
       </button>
+      <img
+        src={image}
+        style={{
+          marginTop: "64px",
+          maxHeight: "480px",
+        }}
+      />
     </div>
   );
 }

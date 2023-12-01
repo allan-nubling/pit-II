@@ -1,21 +1,26 @@
-FROM node:18-alpine AS build
+FROM node:18-alpine AS base
 
 WORKDIR /app
+
+RUN  chown -R node:node /app 
+
+USER node
 
 COPY package.json bun.lockb yarn.lock ./
 
 RUN yarn install
 
+FROM base AS build
+
 COPY . .
 
 RUN yarn build
 
-FROM nginx:alpine AS server
+FROM base AS final
 
-WORKDIR /usr/share/nginx/html/
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
 
-COPY --from=build /app/out ./
+EXPOSE 3000
 
-EXPOSE 80
-
-CMD [ "nginx", "-g", "daemon off;"]
+CMD ["yarn", "start"]

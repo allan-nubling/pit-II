@@ -1,13 +1,11 @@
-export default function PricingLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
-	return (
-		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-			<div className="inline-block max-w-lg text-center justify-center">
-				{children}
-			</div>
-		</section>
-	);
+export default function Layout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <section className="grow flex flex-col justify-center items-center space-y-4">
+      {children}
+    </section>
+  );
 }
