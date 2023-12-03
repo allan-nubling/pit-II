@@ -21,6 +21,6 @@ FROM base AS final
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/public ./public
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD ["yarn", "start"]

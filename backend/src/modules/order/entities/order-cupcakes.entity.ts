@@ -6,5 +6,6 @@ export class OrderCupcakeEntity implements Omit<Cupcake, 'value'> {
   description: string;
   ingredients: string;
   value: number;
+  image: string;
   quantity: number;
 }

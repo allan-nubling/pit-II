@@ -1,11 +1,16 @@
 {
-  "name": "next-app-template",
-  "version": "0.1.0",
+  "name": "pit-be",
+  "version": "0.2.1",
+  "description": "Frontend para ser utilizado no PIT",
+  "author": {
+    "name": "Allan Nubling",
+    "email": "nubling@gmail.com"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3001",
     "lint": "next lint"
   },
   "dependencies": {

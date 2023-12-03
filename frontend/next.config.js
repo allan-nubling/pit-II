@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    BACKEND_URL: "https://pit2-api.nubling.dev",
+    BACKEND_URL: process.env.BACKEND_URL,
   },
   images: {
     remotePatterns: [

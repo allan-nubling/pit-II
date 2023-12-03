@@ -9,5 +9,6 @@ export class CupcakeResponseDTO implements Cupcake {
   description: string;
   ingredients: string;
   value: Decimal;
+  image: string;
   categories: CategoryResponseDTO[];
 }
