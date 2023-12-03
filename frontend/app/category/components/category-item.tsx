@@ -29,7 +29,7 @@ export const CategoryItem = ({ category }: Params) => {
           width="100%"
           alt={category.name}
           className="w-full object-cover h-[140px]"
-          src={`https://nubling-dev.s3.amazonaws.com/pit-assets/cupcake-${category.id}.png`}
+          src={category.image}
         />
       </CardBody>
       <CardFooter className="justify-between flex-col">

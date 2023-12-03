@@ -28,7 +28,7 @@ export const CupcakeCard = ({ cupcake, ...params }: Params) => {
           width="100%"
           alt={cupcake.name}
           className="w-full"
-          src={`https://nubling-dev.s3.amazonaws.com/pit-assets/cupcake-${cupcake.id}.png`}
+          src={cupcake.image}
         />
       </CardBody>
       <CardFooter className="grow text-sm flex-col gap-y-2">
@@ -44,7 +44,9 @@ export const CupcakeCard = ({ cupcake, ...params }: Params) => {
         <Divider />
         <p className="w-full flex flex-wrap justify-center gap-2 text-xs">
           {cupcake.ingredients.split(", ").map((ingredient) => (
-            <Chip key={ingredient} className="text-xs">{ingredient}</Chip>
+            <Chip key={ingredient} className="text-xs">
+              {ingredient}
+            </Chip>
           ))}
         </p>
         <p className="line-clamp-3">{cupcake.description}</p>

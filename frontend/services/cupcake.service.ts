@@ -49,6 +49,7 @@ export namespace CupcakeService {
     description: string;
     ingredients: string;
     value: string;
+    image: string;
     categories: CategoryModel[];
   };
 
@@ -56,6 +57,7 @@ export namespace CupcakeService {
     id: number;
     name: string;
     description: string;
+    image: string;
   }
 
   export interface ListCupcakesInput {

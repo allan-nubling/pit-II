@@ -8,10 +8,6 @@ Dockerfile
 # docs
 documentation/
 
-# environment files
-.env
-.env.example
-
 # compiled output
 dist/
 node_modules/
