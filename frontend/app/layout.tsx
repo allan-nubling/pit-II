@@ -1,14 +1,15 @@
 import "@/styles/globals.css";
+import { Metadata, Viewport } from "next";
+
 import { Link } from "@nextui-org/link";
 
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/molecules/navbar";
+import { fontSans } from "@/config/fonts";
+import { siteConfig } from "@/config/site";
 
 import { Providers } from "./providers";
 
-import { fontSans } from "@/config/fonts";
-import { siteConfig } from "@/config/site";
 import clsx from "clsx";
-import { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: {
@@ -40,7 +41,7 @@ export default function RootLayout({
       <head />
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen bg-background font-sans antialiased scrollbar-hide sm:scrollbar-default",
           fontSans.variable
         )}
       >

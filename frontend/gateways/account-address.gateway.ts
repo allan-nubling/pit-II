@@ -1,9 +1,15 @@
-import { api } from "@/services/api";
+import { revalidateTag } from "next/cache";
+
+import { AccountAddress } from "@/models/account-address.model";
+import { CacheTag } from "@/types/cache-tag.enum";
+
+import { api } from "./api";
+
 
 export async function getAccountAddress(id: number) {
-  const { data } = await api.get<AccountAddressService.Model>(
-    `/client-address/${id}`
-  );
+  const data = await api.get<AccountAddress>(`/client-address/${id}`, {
+    tag: `${CacheTag.accountAddress}:${id}`,
+  });
   return data;
 }
 
@@ -11,10 +17,11 @@ export async function createAccountAddress({
   accountId,
   ...input
 }: AccountAddressService.AccountAddressDTO) {
-  const { data } = await api.post<AccountAddressService.Model>(
+  const data = await api.post<AccountAddress>(
     `/client/${accountId}/address`,
     input
   );
+  revalidateTag(`${CacheTag.account}:${accountId}`);
   return data;
 }
 
@@ -29,18 +36,5 @@ export namespace AccountAddressService {
     state: string;
     zipcode: string;
     favorite: boolean;
-  };
-  export type Model = {
-    id: number;
-    clientId: number;
-    address: string;
-    number: number;
-    complement: string;
-    neighborhood: string;
-    city: string;
-    state: string;
-    zipcode: string;
-    createdAt: string;
-    updatedAt: string;
   };
 }

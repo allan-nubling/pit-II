@@ -1,49 +1,36 @@
-import { Card, CardBody, CardFooter, Chip, Image } from "@nextui-org/react";
+import Image from "next/image";
+import Link from "next/link";
 
-import Carousel from "@/components/carousel";
+import { Card, CardBody, CardFooter, Chip } from "@nextui-org/react";
 
+import Carousel from "@/components/molecules/carousel";
+import { Promotions } from "@/config/promotion-banners";
 import {
   listCupcakes,
   listCupcakesCategories,
-} from "@/services/cupcake.service";
-import Link from "next/link";
-
-const MockPromotions = [
-  {
-    src: "https://nubling-dev.s3.amazonaws.com/pit-assets/banner-001.png",
-    href: "/account",
-  },
-  {
-    src: "https://nubling-dev.s3.amazonaws.com/pit-assets/banner-002.png",
-    href: "/category",
-  },
-  {
-    src: "https://nubling-dev.s3.amazonaws.com/pit-assets/banner-003.png",
-    href: "/order",
-  },
-];
+} from "@/gateways/cupcake.gateway";
 
 export default async function Home() {
   const cupcakes = await listCupcakes();
   const categories = await listCupcakesCategories();
   return (
     <section className="flex flex-col justify-stretch gap-4 scrollbar-hide">
-      <Carousel autoPlay={true} images={MockPromotions} />
+      <Carousel autoPlay={true} images={Promotions} />
       <div className="px-2 flex flex-col gap-2">
         <p className="text-lg uppercase font-bold">Promos que você adora!</p>
         <div className="flex flex-row gap-4 overflow-x-scroll scrollbar-hide py-2 px-1">
           {cupcakes.map(({ id, name, value, image }) => (
-            <Link key={id} href={`/cupcake/${id}`}>
+            <Link key={id} href={`/shopping-bag?cupcake=${id}`}>
               <Card
                 className="h-full min-w-[200px] rounded-b-lg text-center"
                 radius="none"
                 shadow="sm"
+                isPressable
               >
                 <CardBody className="overflow-visible p-0">
                   <Image
-                    radius="none"
-                    shadow="sm"
-                    width="100%"
+                    width={200}
+                    height={180}
                     alt={name}
                     className="w-full h-[180px]"
                     src={image}
@@ -52,10 +39,7 @@ export default async function Home() {
                 <CardFooter className="grow text-sm flex-col gap-y-2">
                   <b className="grow">{name}</b>
                   <Chip className="bg-gradient-to-tr from-indigo-500 to-pink-500 text-white shadow-lg fit">
-                    {Number(value).toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
+                    {value.formatted}
                   </Chip>
                 </CardFooter>
               </Card>
@@ -80,9 +64,8 @@ export default async function Home() {
               className="relative overflow-visible min-w-[200px]"
             >
               <Image
-                radius="none"
-                shadow="sm"
-                width="100%"
+                width={200}
+                height={180}
                 alt={name}
                 className="w-full h-[180px]"
                 src={image}

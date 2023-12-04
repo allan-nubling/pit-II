@@ -1,8 +1,7 @@
 import { title } from "@/components/primitives";
+import { getCategory, listCupcakes } from "@/gateways/cupcake.gateway";
 
 import { CupcakeCard } from "../components/cupcake-card";
-
-import { getCategory, listCupcakes } from "@/services/cupcake.service";
 
 type Params = {
   params: {

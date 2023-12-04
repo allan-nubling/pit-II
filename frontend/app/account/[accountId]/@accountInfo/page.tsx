@@ -1,6 +1,6 @@
 import { Card } from "@nextui-org/react";
 
-import { getAccount } from "@/services/account.service";
+import { getAccount } from "@/gateways/account.gateway";
 
 type Params = {
   params: {

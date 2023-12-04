@@ -10,7 +10,7 @@ export const siteConfig = {
     },
     {
       label: "Carrinho",
-      href: "/shopping-cart",
+      href: "/shopping-bag",
     },
     {
       label: "Pedidos",

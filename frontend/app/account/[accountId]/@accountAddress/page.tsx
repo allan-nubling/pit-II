@@ -1,8 +1,9 @@
+import Link from "next/link";
+
 import { Card } from "@nextui-org/card";
 import { Button } from "@nextui-org/react";
 
-import { getAccountFavoriteAddress } from "@/services/account.service";
-import Link from "next/link";
+import { getAccountFavoriteAddress } from "@/gateways/account.gateway";
 
 type Params = {
   params: {

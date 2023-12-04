@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/button";
+import { Button } from "@/components/atom/button";
 
 import { logoutAction } from "../actions/loggout.action";
 
@@ -15,12 +15,7 @@ export const LogoutForm = (params?: Params) => {
 
   return (
     <form action={formAction} {...params}>
-      <Button
-        type="submit"
-        radius="full"
-        fullWidth
-        className="bg-gradient-to-tr from-indigo-500 to-pink-500 text-white shadow-lg self-center"
-      >
+      <Button type="submit" fullWidth>
         Sair
       </Button>
     </form>

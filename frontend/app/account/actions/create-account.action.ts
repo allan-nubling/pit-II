@@ -1,10 +1,11 @@
 "use server";
 
-import { createAccount } from "@/services/account.service";
-import { CookiesKeys } from "@/types/cookies-keys.enum";
-import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
+import { createAccount } from "@/gateways/account.gateway";
+import { CookiesKeys } from "@/types/cookies-keys.enum";
+
 import { z } from "zod";
 
 type State = {
@@ -21,10 +22,16 @@ const schema = z.object({
   email: z.string().email({ message: "Email invalido!" }),
   firstName: z
     .string()
+    .regex(/^([A-Za-z])+$/, {
+      message: "Nome deve conter apenas lesta sem espaço",
+    })
     .min(3, { message: "O Nome deve conter no mínimo 3 letras" })
     .max(32, { message: "O Nome deve conter no máximo 32 letras" }),
   lastName: z
     .string()
+    .regex(/^([A-Za-z])+$/, {
+      message: "Sobrenome deve conter apenas lesta sem espaço",
+    })
     .min(3, { message: "O Nome deve conter no mínimo 3 letras" })
     .max(32, { message: "O Nome deve conter no máximo 32 letras" }),
   phone: z
@@ -60,13 +67,7 @@ export async function createAccountAction(
   try {
     const account = await createAccount(result.data);
     cookies().set(CookiesKeys.accountId, `${account.id}`, { secure: true });
-    redirect(`/account/${account.id}`);
   } catch (err) {
-    if (err instanceof AxiosError) {
-      return {
-        errors: { request: err.response?.data?.message || err.message },
-      };
-    }
     if (err instanceof Error) {
       return {
         errors: { request: err.message },
@@ -74,4 +75,6 @@ export async function createAccountAction(
     }
     return { errors: { request: "Falha na requisição" } };
   }
+
+  redirect(`/account`);
 }

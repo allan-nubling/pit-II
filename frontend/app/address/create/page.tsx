@@ -4,11 +4,11 @@ import { useState } from "react";
 import { Input } from "@nextui-org/input";
 import { Checkbox, Select, SelectItem } from "@nextui-org/react";
 
-import { Button } from "@/components/button";
+import { Button } from "@/components/atom/button";
+import { STATE_UF } from "@/utils/state-uf.contant";
 
 import { createAccountAddressAction } from "../actions/create-account-address.action";
 
-import { STATE_UF } from "@/utils/state-uf.contant";
 import { useFormState, useFormStatus } from "react-dom";
 
 export default function Page() {
@@ -177,19 +177,13 @@ export default function Page() {
             ))}
           </Select>
         </section>
-        <Checkbox className="self-center" name="favorite" value="true">
+        <Checkbox className="self-center" name="favorite" value="true" defaultSelected>
           Salvar como endereço principal
         </Checkbox>
         {state.errors?.request && (
           <h2 className="text-center text-red-500">{state.errors?.request}</h2>
         )}
-        <Button
-          type="submit"
-          radius="full"
-          fullWidth
-          isLoading={isLoading}
-          className="bg-gradient-to-tr from-indigo-500 to-pink-500 text-white shadow-lg self-center"
-        >
+        <Button type="submit" fullWidth isLoading={isLoading}>
           Criar
         </Button>
       </form>

@@ -1,8 +1,8 @@
 import { title } from "@/components/primitives";
+import { listCupcakesCategories } from "@/gateways/cupcake.gateway";
 
 import { CategoryItem } from "./components/category-item";
 
-import { listCupcakesCategories } from "@/services/cupcake.service";
 
 export default async function CategoryPage() {
   const categories = await listCupcakesCategories();

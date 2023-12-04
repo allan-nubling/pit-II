@@ -1,31 +1,35 @@
 "use client";
-import { Card, CardBody, CardFooter } from "@nextui-org/card";
-import { Chip, Divider, Image } from "@nextui-org/react";
+import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 
-import { CupcakeService } from "@/services/cupcake.service";
-import { useRouter } from "next/navigation";
+import { Card, CardBody, CardFooter } from "@nextui-org/card";
+import { Chip, Divider } from "@nextui-org/react";
+
+import { Cupcake } from "@/models/cupcake.model";
 
 type Params = {
-  cupcake: CupcakeService.Model;
-  isPressable?: boolean;
+  cupcake: Cupcake;
 };
 
 export const CupcakeCard = ({ cupcake, ...params }: Params) => {
   const router = useRouter();
+  const pathname = usePathname();
+
   return (
     <Card
       className="max-w-sm rounded-b-lg hover:shadow-xl"
       radius="none"
       shadow="sm"
+      isPressable
       onPress={() => {
-        router.push(`/cupcake/${cupcake.id}`);
+        router.push(`/shopping-bag?source=${pathname}&cupcake=${cupcake.id}`);
       }}
       {...params}
     >
       <CardBody className="overflow-visible p-0">
         <Image
-          radius="none"
-          width="100%"
+          height={1024}
+          width={1024}
           alt={cupcake.name}
           className="w-full"
           src={cupcake.image}
@@ -33,12 +37,9 @@ export const CupcakeCard = ({ cupcake, ...params }: Params) => {
       </CardBody>
       <CardFooter className="grow text-sm flex-col gap-y-2">
         <div className="grow w-full flex justify-between items-center text-lg font-bold">
-          <text>{cupcake.name}</text>
+          <span>{cupcake.name}</span>
           <Chip className="bg-gradient-to-tr from-indigo-500 to-pink-500 text-white shadow-lg fit">
-            {Number(cupcake.value).toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}
+            {cupcake.value.formatted}
           </Chip>
         </div>
         <Divider />

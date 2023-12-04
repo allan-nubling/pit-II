@@ -1,10 +1,12 @@
 "use server";
 
-import { createAccountAddress } from "@/services/account-address.service";
-import { CookiesKeys } from "@/types/cookies-keys.enum";
-import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
+import { createAccountAddress } from "@/gateways/account-address.gateway";
+import { CookiesKeys } from "@/types/cookies-keys.enum";
+
+import { AxiosError } from "axios";
 import { z } from "zod";
 
 type State = {
@@ -87,15 +89,10 @@ export async function createAccountAddressAction(
     };
 
   try {
-    if (result.data.favorite) {
-      const address = await createAccountAddress({
-        ...result.data,
-        accountId: Number(accountCookie.value),
-      });
-      cookies().set(CookiesKeys.favoriteAddressId, `${address.id}`, {
-        secure: true,
-      });
-    }
+    await createAccountAddress({
+      ...result.data,
+      accountId: Number(accountCookie.value),
+    });
   } catch (err) {
     if (err instanceof AxiosError) {
       return {

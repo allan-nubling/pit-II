@@ -1,14 +1,15 @@
 "use client";
 import { Input } from "@nextui-org/input";
 
-import { Button } from "@/components/button";
+import { Button } from "@/components/atom/button";
 
 import { createAccountAction } from "../actions/create-account.action";
 
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 export default function AccountPage() {
   const [state, formAction] = useFormState(createAccountAction, {});
+  const { pending } = useFormStatus();
   return (
     <div className="grow flex flex-col justify-center items-stretch min-h-[50vh] w-screen sm:w-96 px-8">
       <form
@@ -23,6 +24,7 @@ export default function AccountPage() {
           label="Email"
           isRequired
           errorMessage={state.errors?.email}
+          isDisabled={pending}
         />
         <Input
           type="text"
@@ -31,6 +33,7 @@ export default function AccountPage() {
           label="Nome"
           isRequired
           errorMessage={state.errors?.firstName}
+          isDisabled={pending}
         />
         <Input
           type="text"
@@ -39,6 +42,7 @@ export default function AccountPage() {
           label="Sobrenome"
           isRequired
           errorMessage={state.errors?.lastName}
+          isDisabled={pending}
         />
         <Input
           type="tel"
@@ -47,18 +51,14 @@ export default function AccountPage() {
           label="Celular"
           isRequired
           errorMessage={state.errors?.phone}
+          isDisabled={pending}
         />
 
         {state.errors?.request && (
           <h2 className="text-center text-red-500">{state.errors?.request}</h2>
         )}
 
-        <Button
-          type="submit"
-          radius="full"
-          fullWidth
-          className="bg-gradient-to-tr from-indigo-500 to-pink-500 text-white shadow-lg self-center"
-        >
+        <Button type="submit" extraClassNames="w-4/5" isLoading={pending}>
           Criar
         </Button>
       </form>

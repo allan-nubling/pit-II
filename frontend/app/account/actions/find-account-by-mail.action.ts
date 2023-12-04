@@ -1,9 +1,11 @@
 "use server";
 
-import { findAccountByMail } from "@/services/account.service";
-import { CookiesKeys } from "@/types/cookies-keys.enum";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
+import { findAccountByMail } from "@/gateways/account.gateway";
+import { CookiesKeys } from "@/types/cookies-keys.enum";
+
 import { z } from "zod";
 
 type State = {

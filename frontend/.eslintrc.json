@@ -14,12 +14,9 @@
         "newlinesBetween": "always",
         "groups": [
           "/^react$/",
+          "/^next/",
           "/^@nextui/",
-          "/^@/app/",
-          "/^@/components/",
-          "/^@/configs/",
-          "/^@/public/",
-          "/^@/styles/",
+          "/^@/",
           ["parent", "sibling", "index"]
         ],
         "alphabetize": { "order": "asc", "ignoreCase": true }

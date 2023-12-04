@@ -1,12 +1,14 @@
 "use client";
-import { Card, CardBody, CardFooter } from "@nextui-org/card";
-import { Divider, Image } from "@nextui-org/react";
-
-import { CupcakeService } from "@/services/cupcake.service";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+import { Card, CardBody, CardFooter } from "@nextui-org/card";
+import { Divider } from "@nextui-org/react";
+
+import { CupcakeService } from "@/gateways/cupcake.gateway";
+
 type Params = {
-  category: CupcakeService.CategoryModel;
+  category: CupcakeService.CategoryDTO;
 };
 
 export const CategoryItem = ({ category }: Params) => {
@@ -24,9 +26,8 @@ export const CategoryItem = ({ category }: Params) => {
     >
       <CardBody className="overflow-visible p-0">
         <Image
-          radius="none"
-          shadow="sm"
-          width="100%"
+          height={1024}
+          width={1024}
           alt={category.name}
           className="w-full object-cover h-[140px]"
           src={category.image}

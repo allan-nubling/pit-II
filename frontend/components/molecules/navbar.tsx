@@ -1,5 +1,5 @@
-import { Input } from "@nextui-org/input";
-import { Kbd } from "@nextui-org/kbd";
+import NextLink from "next/link";
+
 import { Link } from "@nextui-org/link";
 import {
   Navbar as NextUINavbar,
@@ -12,36 +12,16 @@ import {
 } from "@nextui-org/navbar";
 import { link as linkStyles } from "@nextui-org/theme";
 
-import { GithubIcon, SearchIcon } from "@/components/icons";
-import { ThemeSwitch } from "@/components/theme-switch";
-
+import { ThemeSwitch } from "@/components/molecules/theme-switch";
 import { siteConfig } from "@/config/site";
+
+import { ShoppingBag } from "./shopping-cart";
+
 import clsx from "clsx";
-import NextLink from "next/link";
+import { DiGithubBadge } from "react-icons/di";
 import { GiCupcake } from "react-icons/gi";
 
 export const Navbar = () => {
-  const searchInput = (
-    <Input
-      aria-label="Search"
-      classNames={{
-        inputWrapper: "bg-default-100",
-        input: "text-sm",
-      }}
-      endContent={
-        <Kbd className="hidden lg:inline-block" keys={["command"]}>
-          K
-        </Kbd>
-      }
-      labelPlacement="outside"
-      placeholder="Search..."
-      startContent={
-        <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-      }
-      type="search"
-    />
-  );
-
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -74,16 +54,18 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
+          <ShoppingBag />
           <Link isExternal href={siteConfig.links.github} aria-label="Github">
-            <GithubIcon className="text-default-500" />
+            <DiGithubBadge className="w-7 h-7 text-default-500" />
           </Link>
           <ThemeSwitch />
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+        <ShoppingBag />
         <Link isExternal href={siteConfig.links.github} aria-label="Github">
-          <GithubIcon className="text-default-500" />
+          <DiGithubBadge className="w-7 h-7 text-default-500" />
         </Link>
         <ThemeSwitch />
         <NavbarMenuToggle />

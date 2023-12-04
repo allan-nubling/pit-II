@@ -1,8 +1,9 @@
 "use server";
 
-import { CookiesKeys } from "@/types/cookies-keys.enum";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
+import { CookiesKeys } from "@/types/cookies-keys.enum";
 
 export async function logoutAction(
   prevState: null,

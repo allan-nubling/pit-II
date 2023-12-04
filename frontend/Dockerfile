@@ -1,26 +1,33 @@
-FROM node:18-alpine AS base
+FROM node:18-alpine AS build
 
 WORKDIR /app
 
-COPY package.json bun.lockb yarn.lock ./
+COPY package.json yarn.lock ./
 
 RUN yarn install
-
-FROM base AS build
 
 COPY . .
 
 RUN yarn build
 
-FROM base AS final
+FROM node:18-alpine AS server
 
-COPY --from=build /app/.next ./.next
+WORKDIR /app
+
+COPY --from=build /app/package.json .
+COPY --from=build /app/yarn.lock .
+COPY --from=build /app/next.config.js .
 COPY --from=build /app/public ./public
+COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/.next/static ./.next/static
 
 RUN  chown -R node:node /app 
 
 USER node
 
+ENV NODE_ENV=production \
+    PORT=3001
+
 EXPOSE 3001
 
-CMD ["yarn", "start"]
+CMD ["node", "server.js"]
