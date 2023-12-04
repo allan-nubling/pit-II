@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "nubling-dev.s3.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "pit2.nubling.dev",
+      },
     ],
   },
   experimental: {
