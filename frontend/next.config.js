@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
   images: {
     remotePatterns: [
       {
@@ -12,6 +11,11 @@ const nextConfig = {
         hostname: "nubling-dev.s3.amazonaws.com",
       },
     ],
+  },
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["localhost", "pit2.nubling.dev"],
+    },
   },
 };
 
