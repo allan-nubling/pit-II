@@ -14,10 +14,11 @@ RUN yarn build
 
 FROM base AS final
 
+COPY --from=build /app/next.config.js .
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/public ./public
 
-RUN  chown -R node:node /app 
+RUN chown -R node:node /app
 
 USER node
 
