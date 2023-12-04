@@ -8,7 +8,7 @@ export const useFetchCupcake = () => {
 
   const handleFetch = async () => {
     setIsLoading(true);
-    const res = await fetch("/cupcake");
+    const res = await fetch("/api/cupcake");
     const data: Cupcake[] = await res.json();
     setCupcakes(data);
     setIsLoading(false);

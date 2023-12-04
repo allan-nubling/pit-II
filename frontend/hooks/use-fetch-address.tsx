@@ -8,7 +8,7 @@ export const useFetchAddress = () => {
 
   const handleFetch = async () => {
     setIsLoading(true);
-    const res = await fetch("/address");
+    const res = await fetch("/api/address");
     if (res.ok) {
       const data: AccountAddress = await res.json();
       setAddress(data);

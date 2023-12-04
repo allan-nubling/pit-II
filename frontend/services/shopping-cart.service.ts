@@ -19,9 +19,12 @@ export function storeShoppingBag(shoppingBag: ShoppingBag) {
 export function addCupcake(id: number) {
   const currentBag = getShoppingBag();
 
-  const currentCount = currentBag.cupcakes.get(String(id));
-  const newValue = currentCount ? currentCount + 1 : 1;
-  currentBag.cupcakes.set(String(id), newValue);
+  const storedValue = currentBag.cupcakes.get(String(id));
+  const newValue = storedValue ? storedValue.quantity + 1 : 1;
+  currentBag.cupcakes.set(String(id), {
+    id: id,
+    quantity: newValue,
+  });
 
   storeShoppingBag(currentBag);
   return currentBag;
@@ -30,11 +33,14 @@ export function addCupcake(id: number) {
 export function removeCupcake(id: number) {
   const currentBag = getShoppingBag();
 
-  const currentCount = currentBag.cupcakes.get(String(id));
-  const newValue = currentCount ? currentCount - 1 : 0;
+  const storedValue = currentBag.cupcakes.get(String(id));
+  const newValue = storedValue ? storedValue.quantity - 1 : 0;
 
   if (newValue > 0) {
-    currentBag.cupcakes.set(String(id), newValue);
+    currentBag.cupcakes.set(String(id), {
+      id: id,
+      quantity: newValue,
+    });
   } else {
     currentBag.cupcakes.delete(String(id));
   }

@@ -11,6 +11,18 @@ export async function GET() {
       { error: "Endereço favorito não encontrado" },
       { status: 404 }
     );
-  const address = await getAccountFavoriteAddress(Number(account.value));
-  return NextResponse.json(address);
+  try {
+    const address = await getAccountFavoriteAddress(Number(account.value));
+    if (!account)
+      return NextResponse.json(
+        { error: "Endereço favorito não encontrado" },
+        { status: 404 }
+      );
+    return NextResponse.json(address);
+  } catch (err) {
+    return NextResponse.json(
+      { error: "Endereço favorito não encontrado" },
+      { status: 404 }
+    );
+  }
 }

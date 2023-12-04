@@ -15,7 +15,7 @@ import { link as linkStyles } from "@nextui-org/theme";
 import { ThemeSwitch } from "@/components/molecules/theme-switch";
 import { siteConfig } from "@/config/site";
 
-import { ShoppingBag } from "./shopping-cart";
+import { ShoppingBag } from "./shopping-bag";
 
 import clsx from "clsx";
 import { DiGithubBadge } from "react-icons/di";
@@ -75,7 +75,7 @@ export const Navbar = () => {
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Link color="foreground" href="#" size="lg">
+              <Link color="foreground" href={item.href} size="lg">
                 {item.label}
               </Link>
             </NavbarMenuItem>

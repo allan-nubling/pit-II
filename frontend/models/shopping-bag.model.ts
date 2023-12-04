@@ -1,17 +1,27 @@
 import { Cupcake } from "./cupcake.model";
 
 export class ShoppingBag {
-  cupcakes: Map<string, number>;
+  cupcakes: Map<
+    string,
+    {
+      id: number;
+      quantity: number;
+    }
+  >;
 
   constructor({ cupcakes }: ShoppingBag.Input) {
     this.cupcakes = cupcakes;
   }
 
-  getCount() {
+  getTotalCount() {
     return Array.from(this.cupcakes.values()).reduce(
-      (agg, val) => agg + val,
+      (agg, val) => agg + val.quantity,
       0
     );
+  }
+
+  getCounts() {
+    return Array.from(this.cupcakes.values());
   }
 
   mountList(cupcakes: Cupcake[]) {
@@ -21,7 +31,7 @@ export class ShoppingBag {
     return Array.from(this.cupcakes.entries())
       .map(([key, value]) => {
         const data = cupcakesMap.get(key);
-        return data && { ...data, count: value };
+        return data && { ...data, count: value.quantity };
       })
       .filter((value) => value) as Array<Cupcake & { count: number }>;
   }
@@ -36,6 +46,12 @@ export class ShoppingBag {
 
 export namespace ShoppingBag {
   export type Input = {
-    cupcakes: Map<string, number>;
+    cupcakes: Map<
+      string,
+      {
+        id: number;
+        quantity: number;
+      }
+    >;
   };
 }

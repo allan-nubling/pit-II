@@ -64,8 +64,10 @@ export async function createAccountAction(
     };
   }
 
+  let accountId = 0;
   try {
     const account = await createAccount(result.data);
+    accountId = account.id;
     cookies().set(CookiesKeys.accountId, `${account.id}`, { secure: true });
   } catch (err) {
     if (err instanceof Error) {
@@ -76,5 +78,5 @@ export async function createAccountAction(
     return { errors: { request: "Falha na requisição" } };
   }
 
-  redirect(`/account`);
+  redirect(`/account${accountId ? `/${accountId}` : ""}`);
 }

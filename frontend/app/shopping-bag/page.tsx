@@ -9,18 +9,20 @@ import { Card, Spacer } from "@nextui-org/react";
 
 import { Button } from "@/components/atom/button";
 import { ShoppingBagContext } from "@/contexts/shopping-bag.context";
+import { useCreateOrder } from "@/hooks/use-create-order";
 import { useFetchAddress } from "@/hooks/use-fetch-address";
+import { useFetchStore } from "@/hooks/use-fetch-store";
 
 import { BagAddress } from "./components/bag-address";
 import { BagAddressSkeleton } from "./components/bag-address-skeleton";
 import { BagItem } from "./components/bag-item";
 import { BagItemSkeleton } from "./components/bag-item-skeleton";
-
+import { BagStore } from "./components/bag-store";
 
 import { FaTrashAlt } from "react-icons/fa";
 
 export default function ShoppingCartPage() {
-  let {
+  const {
     shoppingBag,
     cupcakes,
     isLoading,
@@ -32,6 +34,10 @@ export default function ShoppingCartPage() {
 
   const { isLoading: isLoadingAddress, address } = useFetchAddress();
 
+  const { isLoading: isLoadingStore, store } = useFetchStore(address?.zipcode);
+
+  const { isLoading: isLoadingOrder, handleCreateOrder } = useCreateOrder();
+
   const redirectedFrom = searchParams.get("source");
   const cupcake = searchParams.get("cupcake");
 
@@ -39,6 +45,11 @@ export default function ShoppingCartPage() {
     if (!cupcake) return;
     addCupcake(Number(cupcake));
   }, [cupcake]);
+
+  const anyLoading =
+    isLoading || isLoadingAddress || isLoadingStore || isLoadingOrder;
+
+  const haveAllData = Boolean(shoppingBag.getTotalCount() && address && store);
 
   return (
     <div className="w-full flex flex-col md:flex-row justify-center gap-3 p-4">
@@ -48,7 +59,7 @@ export default function ShoppingCartPage() {
         </Link>
       </div>
 
-      {(!!shoppingBag.getCount() || isLoading) && (
+      {(!!shoppingBag.getTotalCount() || isLoading) && (
         <div className="w-full sm:w-96 flex flex-col items-center gap-3">
           <Card className="w-full p-3 gap-3">
             <div className="relative self-end">
@@ -92,6 +103,12 @@ export default function ShoppingCartPage() {
           ) : (
             <BagAddress address={address} />
           )}
+          <strong>Loja</strong>
+          {isLoadingStore || isLoadingAddress ? (
+            <BagAddressSkeleton />
+          ) : (
+            <BagStore store={store} />
+          )}
           <span className="flex justify-between mt-2">
             <strong>Total</strong>
             <span>
@@ -102,10 +119,21 @@ export default function ShoppingCartPage() {
             </span>
           </span>
         </Card>
-        {!!shoppingBag.getCount() && (
-          <Link href={redirectedFrom ?? "/"} className="w-4/5">
-            <Button extraClassNames="w-full">Finalizar</Button>
-          </Link>
+        {!!shoppingBag.getTotalCount() && (
+          <Button
+            extraClassNames="w-4/5"
+            isDisabled={anyLoading || !haveAllData}
+            onClick={() => {
+              handleCreateOrder({
+                addressId: Number(address?.id),
+                storeId: Number(store?.id),
+                paymentMethod: "pix",
+                shoppingBag: shoppingBag.getCounts(),
+              });
+            }}
+          >
+            Finalizar
+          </Button>
         )}
         <UILink href={redirectedFrom ?? "/"} className="hidden sm:block">
           Continuar comprando
