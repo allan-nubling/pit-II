@@ -14,7 +14,7 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      allowedOrigins: ["localhost", "pit2.nubling.dev"],
+      allowedOrigins: ["localhost", "pit2.nubling.dev", "127.0.0.1:3001"],
     },
   },
 };
