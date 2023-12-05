@@ -33,13 +33,10 @@ const schema = z.object({
     .min(3, { message: "O endereço deve conter no mínimo 3 letras" })
     .max(255, { message: "O endereço deve conter no máximo 255 letras" }),
   number: z.number(),
-  complement: z
-    .string()
-    .min(3, { message: "O complemento deve conter no mínimo 3 letras" })
-    .max(255, { message: "O complemento deve conter no máximo 255 letras" }),
+  complement: z.string().optional(),
   neighborhood: z
     .string()
-    .min(3, { message: "O bairro deve conter no mínimo 3 letras" })
+    .min(1, { message: "O bairro deve conter no mínimo 1 letra" })
     .max(255, { message: "O bairro deve conter no máximo 255 letras" }),
   city: z
     .string()

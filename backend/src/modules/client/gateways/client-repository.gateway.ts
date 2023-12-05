@@ -30,6 +30,7 @@ export class ClientRepository extends RepositoryPagination<Client> {
       throw e;
     }
   }
+  
   async list({
     size = 25,
     page = 1,

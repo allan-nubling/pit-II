@@ -63,6 +63,7 @@ O objetivo deste projeto é colocar em prática o projeto desenvolvido durante o
 - [x] Listar cupcakes de uma categoria
 - [x] Login (buscar conta por email)
 - [x] Criar usuário
+- [x] Auto-completar endereço
 - [x] Cadastrar endereço
 - [x] Resumo do usuário / loggout
 - [x] Carrinho (adicionar/remover item, limpar carrinho, realizar compra

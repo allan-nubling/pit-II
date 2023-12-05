@@ -32,8 +32,9 @@ export class CreateClientAddressDTO
     description: 'Address complement',
     example: 'casa 71',
   })
+  @IsOptional()
   @IsString()
-  @Length(3, 255)
+  @Length(0, 255)
   complement: string;
 
   @ApiProperty({
@@ -41,7 +42,7 @@ export class CreateClientAddressDTO
     example: 'Centro',
   })
   @IsString()
-  @Length(3, 255)
+  @Length(0, 255)
   neighborhood: string;
 
   @ApiProperty({

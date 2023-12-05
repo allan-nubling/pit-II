@@ -111,7 +111,6 @@ export default function Page() {
             name="complement"
             variant="bordered"
             label="Complemento"
-            isRequired
             isDisabled={isLoading}
             errorMessage={state.errors?.complement}
             value={form.complement}
