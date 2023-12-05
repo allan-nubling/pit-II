@@ -5,7 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.10.0] - 2023-10-14
+## [1.0.0] - 2023-12-04
+
+### Changed
+
+- [Frontend] Versão 1.0.0
+- [Backend] Versão 1.0.0
+- [Frontend] Agora todas imagens estão utilizando o componente do Next para otimização
+
+### Added
+
+- [Frontend] Finalização da pagina de checkout, com busca do estabelecimento
+- [Frontend] Pagina de pedidos com listagens simples de todos pedidos realizados pelo cliente
+- [Projeto] Readme com documentação do projeto
+
+## [0.10.0] - 2023-12-03
 
 ### Changed
 
@@ -22,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Deployment] Desacoplando banco do docker-compose para mais segurança dos dados
 
-## [0.9.0] - 2023-10-14
+## [0.9.0] - 2023-12-01
 
 ### Changed
 
